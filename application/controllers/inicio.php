@@ -22,9 +22,21 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('pace_model');
-		$data['usuario'] = $this->pace_model->getUsuario();
-		print_r($data);
-		$this->load->view('welcome_message');
+		$nombre='Francisco';
+		$data['usuario'] = $this->pace_model->getUsuario($nombre);
+		$this->template->load('template', 'about', $data);
+		//$this->template->load('plantilla', 'controlador', dato);
 	}
+	
+	
+	public function tareas()
+	{
+		$this->load->model('pace_model');
+		$nombre='Francisco';
+		$data['usuario'] = $this->pace_model->getUsuario($nombre);
+		$this->template->load('template', 'arbol', $data);
+		//$this->template->load('plantilla', 'controlador', dato);
+	}
+	
 	
 }

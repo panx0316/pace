@@ -10,9 +10,10 @@ class Pace_model extends CI_Model{
 	
 	
 	
-	public function getUsuario()
+	public function getUsuario($nombre = FALSE)
 	{
-	$sql="SELECT * FROM p_usuario";
+	$sql="SELECT * FROM p_usuario where P_NOMBRE_USUARIO='{$nombre}' ";
+
 	$query = $this->db->query($sql);
 	
 	return $query->result();
