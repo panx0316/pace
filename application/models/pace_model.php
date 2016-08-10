@@ -20,7 +20,7 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getProyectos($nombre = FALSE)
+	public function getProyectos()
 	{
 	$sql="select * from p_proyecto";
 
@@ -30,7 +30,7 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getHitos($nombre = FALSE)
+	public function getHitos()
 	{
 	$sql="select * from p_hitos";
 
@@ -40,9 +40,19 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getActividades($nombre = FALSE)
+	public function getActividades()
 	{
 	$sql="select * from p_actividad";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	
+	}
+	
+	public function getAreas()
+	{
+	$sql="select * from p_area";
 
 	$query = $this->db->query($sql);
 	
