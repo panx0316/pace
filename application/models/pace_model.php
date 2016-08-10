@@ -20,6 +20,36 @@ class Pace_model extends CI_Model{
 	
 	}
 	
+	public function getProyectos($nombre = FALSE)
+	{
+	$sql="select * from p_proyecto";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	
+	}
+	
+	public function getHitos($nombre = FALSE)
+	{
+	$sql="select * from p_hitos";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	
+	}
+	
+	public function getActividades($nombre = FALSE)
+	{
+	$sql="select * from p_actividad";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	
+	}
+	
 }
 
 

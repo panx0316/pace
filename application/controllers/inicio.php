@@ -12,7 +12,7 @@ class Inicio extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		
+		$this->load->model('pace_model');
 		
 	}
 	
@@ -21,22 +21,19 @@ class Inicio extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->model('pace_model');
+		
 		$nombre='Francisco';
 		$data['usuario'] = $this->pace_model->getUsuario($nombre);
-		$this->template->load('template', 'about', $data);
-		//$this->template->load('plantilla', 'controlador', dato);
-	}
-	
-	
-	public function tareas()
-	{
-		$this->load->model('pace_model');
-		$nombre='Francisco';
-		$data['usuario'] = $this->pace_model->getUsuario($nombre);
+		$data['proyectos'] = $this->pace_model->getProyectos();
+		$data['hitos'] = $this->pace_model->getHitos();
+		$data['actividades'] = $this->pace_model->getActividades();
+		
 		$this->template->load('template', 'arbol', $data);
 		//$this->template->load('plantilla', 'controlador', dato);
 	}
+	
+	
+	
 	
 	
 }
