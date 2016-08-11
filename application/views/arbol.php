@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Proyecto</h1>
+  <h3>Proyectos</h3>
     <?php foreach ($proyectos as $data_proyectos){ ?>
   <div class="tree">
     <ul>
@@ -34,3 +34,6 @@
   </div>
   <?php	}  ?>
 </div>
+
+
+<button type="button" id="addProject" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Proyecto</button>

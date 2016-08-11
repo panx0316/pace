@@ -33,6 +33,10 @@ class Inicio extends CI_Controller {
 		//$this->template->load('plantilla', 'controlador', dato);
 	}
 	
+	public function nuevoProyecto(){
+		$this->load->view('nuevo_proyecto');
+	}
+	
 	
 	
 	
