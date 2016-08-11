@@ -9,8 +9,7 @@
     border-top: 2px solid #000;
 }
 #header{
-	background-color: beige;
-	height: 17%;
+	background-color: white;
 	position: relative;
 	top: 0px;
 	width: 100%;
@@ -19,5 +18,22 @@
 	width: 100%;
     margin:0 auto;
     position: relative;
-    margin-bottom:202px;
+    margin-bottom: 202px;
 }
+.logo_ucsc img{
+    float: left;
+    width: 20%;
+    margin: 1% 0;
+}
+.logo_pace img{
+    float: right;
+    width: 30%;
+    margin: 1% 0;
+}
+
+.perfil{
+    width: 100%;
+    background: #d6092c;
+    height: 20px;
+}
+

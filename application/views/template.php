@@ -1,6 +1,7 @@
 <html>
 <head>
 <?php $ruta='http://localhost:8080/pace/' ?>
+<?php $ruta='http://localhost/pace/' ?>
 <!-- LIBRERIAS CSS -->
 	    <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -12,9 +13,11 @@
 </head>
 <body>
     <div id="header">
-
-	<div >Header</div>
-	
+    <div class="container">
+    <div class="perfil"></div>
+	<div class="logo_ucsc"><img src="<?php echo $ruta; ?>assets/img/logo_ucsc.png"></div>
+    <div class="logo_pace"><img src="<?php echo $ruta; ?>assets/img/logo_pace.jpg"></div>
+    </div>
 	</div>
 	<div id="contents"><?= $contents ?></div>
     <div id="footer">
