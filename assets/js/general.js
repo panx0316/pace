@@ -2,7 +2,7 @@
 	
 	
 	
-	$(function () {
+$(document).ready(function() {
 
 	$.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -28,4 +28,4 @@
     });
 	
 	
-	});
+});
