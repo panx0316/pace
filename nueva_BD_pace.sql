@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-10 15:31:08
+Date: 2016-08-12 10:30:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,6 +48,8 @@ INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '2016-08-09
 INSERT INTO `p_actividad` VALUES ('5', '1', 'segunda actividad dos', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '2', '2');
 INSERT INTO `p_actividad` VALUES ('6', '1', 'primera actividad tres', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '3', '3');
 INSERT INTO `p_actividad` VALUES ('7', '1', 'segunda actividad tres', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '3', '3');
+INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '4', '3');
+INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '4', '3');
 
 -- ----------------------------
 -- Table structure for p_area
@@ -106,6 +108,8 @@ CREATE TABLE `p_proyecto` (
   `P_ID_PROYECTO` int(11) NOT NULL,
   `P_NOMBRE_PROYECTO` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `P_ID_USUARIO_RESPONSABLE` int(11) NOT NULL,
+  `P_RUT_RESPONSABLE` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
+  `P_NOMBRE_RESPONSABLE` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `P_FECHA_INICIO` date NOT NULL,
   `P_FECHA_TERMINO` date NOT NULL,
   `P_VALOR` int(11) NOT NULL,
@@ -117,7 +121,9 @@ CREATE TABLE `p_proyecto` (
 -- ----------------------------
 -- Records of p_proyecto
 -- ----------------------------
-INSERT INTO `p_proyecto` VALUES ('1', 'PROYECTO 1', '16621913', '2016-08-09', '2016-08-16', '100000', '10', 'DESCRIPCION');
+INSERT INTO `p_proyecto` VALUES ('1', 'PROYECTO 1', '2', '', '', '2016-08-09', '2016-08-16', '100000', '10', 'DESCRIPCION');
+INSERT INTO `p_proyecto` VALUES ('2', 'nuevo proyecto', '1', '181062738', 'Darling', '2016-08-11', '2016-08-12', '1300', '0', 'prueba');
+INSERT INTO `p_proyecto` VALUES ('3', 'PROYECTO FERNANDO', '2', '166219132', 'Francisco', '2016-08-11', '2016-08-12', '1500', '0', 'PRUEBA');
 
 -- ----------------------------
 -- Table structure for p_usuario
@@ -125,13 +131,15 @@ INSERT INTO `p_proyecto` VALUES ('1', 'PROYECTO 1', '16621913', '2016-08-09', '2
 DROP TABLE IF EXISTS `p_usuario`;
 CREATE TABLE `p_usuario` (
   `P_ID_USUARIO` int(11) NOT NULL,
+  `P_RUT_RESPONSABLE` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `P_NOMBRE_USUARIO` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `P_PASSWORD` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `P_CORREO_USUARIO` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `P_CORREO_USUARIO` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`P_ID_USUARIO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of p_usuario
 -- ----------------------------
-INSERT INTO `p_usuario` VALUES ('1', 'Darling', '123456', 'dxdiaz@ing.ucsc.cl');
-INSERT INTO `p_usuario` VALUES ('2', 'Francisco', '654321', 'fcordero@ucsc.cl');
+INSERT INTO `p_usuario` VALUES ('1', '181062738', 'Darling', '123456', 'dxdiaz@ing.ucsc.cl');
+INSERT INTO `p_usuario` VALUES ('2', '166219132', 'Francisco', '654321', 'fcordero@ucsc.cl');
