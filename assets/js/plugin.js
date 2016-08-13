@@ -5,4 +5,12 @@ $(function () {
         else children.show('fast');
         e.stopPropagation();
     });
+	
+	
+	$( document ).ready(function() {
+    $('.tree li').css("display","none");
+    $('.tituloProyecto').css("display","block");
+	
+	});
+	
 });

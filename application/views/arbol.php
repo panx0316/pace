@@ -3,8 +3,8 @@
     <?php foreach ($proyectos as $data_proyectos){ ?>
   <div class="tree">
     <ul>
-      <li>
-        <a href="#"><?php echo $data_proyectos->P_NOMBRE_PROYECTO; ?></a>
+      <li class="tituloProyecto">
+        <a href="#" ><?php echo $data_proyectos->P_NOMBRE_PROYECTO; ?></a>
         <ul>
           <?php foreach ($areas as $data_areas){ ?>
           <?php if($data_areas->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
