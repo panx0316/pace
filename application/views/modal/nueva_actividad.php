@@ -1,4 +1,82 @@
+<<<<<<< HEAD
 ﻿<form id="form_nueva_actividad" class="form-horizontal" method="post" action="inicio/nueva_actividad_progress" enctype="multipart/form-data">
+=======
+﻿
+<script>
+		$(document).ready(function() {
+
+		jQuery.validator.addMethod("letras", function(value, element) {
+        return this.optional(element) || /^[a-záéóóúàèìòùäëïöüñ\s]+$/i.test(value);
+        }); 
+			
+
+			$( ".fecha" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true
+			});
+
+			$("#form_nuevo_proyecto").validate({
+			rules: {
+				proyecto: {required: true},
+				area: {required: true},
+				hito: {required: true},
+				titulo: {required: true},
+				rut_responsable: {required: true},
+				nombre_responsable: {required: true, letras:true},
+				costo: {required: true, number : true},
+				descripcion: {required: true, rangelength: [1,1000]},
+				fecha_inicio: {required: true},
+				fecha_termino: {required: true}
+				
+			},
+			messages: {
+				proyecto: {required:"Seleccione un proyecto"},
+				area: {required:"Seleccione un area del proyecto"} ,
+				hito: {required:"Seleccione un hito del proyecto"} ,
+				titulo: {required:"Ingrese titulo de proyecto"},
+				rut_responsable: {required:"Ingrese un rut de responsable"},
+				nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
+				costo: {required:"Ingrese costo", number: "Ingrese solo numeros"},
+				descripcion: {required:"Ingrese una descripción", rangelength: "Máximo 1000 caracteres"},
+				fecha_inicio: {required:"Ingrese una fecha de inicio"},
+				fecha_termino: {required:"Ingrese una fecha de termino"}
+			},
+			submitHandler: function() {
+			
+			var form =  $('form.form-horizontal'),action = form.attr('action');
+			
+			var formData = new FormData(form[0]);
+				$.ajax({
+					type: 'post',
+					url:  host+action,
+					data: formData, //form.serialize()
+					cache: false,
+					contentType: false,
+					processData: false,
+					timeout: 20000,
+					
+					beforeSend: function () {
+						$('.enviar_solicitud').prop('disabled', true);
+					},
+					success: function (data, status)
+					{
+						$("#resultado").html(data);
+					},
+					error: function(jqXHR, estado, error)
+					{
+						console.log(error);
+						alert(error);
+					},
+				
+				});
+			}
+		});
+	
+	});
+</script>
+
+<form id="form_nueva_actividad" class="form-horizontal" method="post" action="inicio/nueva_actividad_progress" enctype="multipart/form-data">
+>>>>>>> origin/master
 
 <input type="hidden" name="fecha" value="<?php echo date('d/m/Y');?>">
   
