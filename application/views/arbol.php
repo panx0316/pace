@@ -39,4 +39,4 @@
 <button type="button" id="addProject" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Proyecto</button>
 <button type="button" id="addArea" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Área</button>
 <button type="button" id="addHito" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Hito</button>
-<button type="button" id="addTarea" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Tarea</button>
+<button type="button" id="addActividad" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad</button>

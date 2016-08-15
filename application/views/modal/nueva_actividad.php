@@ -1,4 +1,4 @@
-﻿<form id="form_nueva_area" class="form-horizontal" method="post" action="inicio/nueva_area_progress" enctype="multipart/form-data">
+﻿<form id="form_nueva_actividad" class="form-horizontal" method="post" action="inicio/nueva_actividad_progress" enctype="multipart/form-data">
 
 <input type="hidden" name="fecha" value="<?php echo date('d/m/Y');?>">
   
@@ -9,6 +9,28 @@
 		  <option value="">--Seleccione un Proyecto--</option>
 		  <?php foreach ($proyectos as $data_proyectos){
 		  echo "<option value=".$data_proyectos->P_ID_PROYECTO.">".$data_proyectos->P_NOMBRE_PROYECTO."</option>";
+		  } ?>
+		  <select>
+		</div>
+</div>   
+  <div class="form-group form-group-sm">
+		<label for="" class="col-sm-2 control-label">Área</label>
+		<div class="col-sm-8">
+		  <select class="form-control" id="area" name="area">
+		  <option value="">--Seleccione un área--</option>
+		  <?php foreach ($areas as $data_areas){
+		  echo "<option value=".$data_areas->P_ID_AREA.">".$data_areas->P_NOMBRE_AREA."</option>";
+		  } ?>
+		  <select>
+		</div>
+</div>  
+<div class="form-group form-group-sm">
+		<label for="" class="col-sm-2 control-label">Hito</label>
+		<div class="col-sm-8">
+		  <select class="form-control" id="hito" name="hito">
+		  <option value="">--Seleccione un Hito--</option>
+		  <?php foreach ($hitos as $data_hitos){
+		  echo "<option value=".$data_hitos->P_ID_HITO.">".$data_hitos->P_NOMBRE_HITO."</option>";
 		  } ?>
 		  <select>
 		</div>

@@ -54,6 +54,59 @@ $(document).ready(function() {
 	
 	});
 	
+	$("#addHito").on("click", function(){
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/nuevoHito/',
+			success: function (data, status)
+			{
+				if(data != ''){
+					$.createModal({
+						title:'Agregar Hito',
+						message: data,
+						closeButton:false,
+						idModal:'modal_add_hito'
+						
+					});
+				}
+			},
+			error: function(jqXHR, estado, error)
+			{
+					console.log(error);
+					alert(error);
+			},
+					timeout: 10000
+					
+		});
+	
+	});	
+	
+	$("#addActividad").on("click", function(){
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/nuevaActividad/',
+			success: function (data, status)
+			{
+				if(data != ''){
+					$.createModal({
+						title:'Agregar Actividad',
+						message: data,
+						closeButton:false,
+						idModal:'modal_add_actividad'
+						
+					});
+				}
+			},
+			error: function(jqXHR, estado, error)
+			{
+					console.log(error);
+					alert(error);
+			},
+					timeout: 10000
+					
+		});
+	
+	});
 		
 
 	$.datepicker.regional['es'] = {

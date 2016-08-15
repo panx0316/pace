@@ -36,6 +36,17 @@ class Inicio extends CI_Controller {
 		$data['proyectos'] = $this->pace_model->getProyectos();
 		$this->load->view('modal/nueva_area', $data);
 	}
+	public function nuevoHito(){
+		$data['proyectos'] = $this->pace_model->getProyectos();
+		$data['areas'] = $this->pace_model->getAreas();
+		$this->load->view('modal/nuevo_hito', $data);
+	}
+	public function nuevaActividad(){
+		$data['proyectos'] = $this->pace_model->getProyectos();
+		$data['areas'] = $this->pace_model->getAreas();
+		$data['hitos'] = $this->pace_model->getHitos();
+		$this->load->view('modal/nueva_actividad', $data);
+	}
 	
 	public function nuevo_proyecto_progress(){
 		if($_POST)
