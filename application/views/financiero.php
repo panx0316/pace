@@ -16,19 +16,13 @@
 <br><br>
 
 <table border=1 style="width:100%;">
-    <tr>
+	<tr>
         <th scope="colgroup" colspan="12">Gastos Adquiribles</th>
     </tr>
-    <tr>
-        <th scope="colgroup" colspan="12">Bienes</th>
-    </tr><tr>
-        <th scope="colgroup" colspan="12">Obras menores</th>
-    </tr>
-    <tr>
-        <th scope="colgroup" colspan="12">Servicio de consultoría</th>
-    </tr>
-    <tr>
-        <th scope="colgroup" colspan="12">Servicios de no consultoría</th>
+     <?php foreach ($item_tipo_gastos as $data_adquiribles){ ?>
+	  <tr>
+        <th scope="colgroup" colspan="12"><?php echo $data_adquiribles->P_NOMBRE_ITEM_TIPO_GASTO; ?></th>
+		
     </tr>
         <tr>
         <th>Estrategia</th>
@@ -41,6 +35,7 @@
         <th>Saldo</th>
         <th>estado</th>
     </tr> 
+		<?php if($data_adquiribles->P_ID_ITEM_TIPO_GASTO ==3){ ?>
     <?php foreach ($gastos as $data_gastos){ ?>
     <?php if($data_gastos->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
 
@@ -69,6 +64,8 @@
     </tr>
 <?php } ?>
 <?php } ?>
+	 <?php } ?>
+	 <?php } ?>
     <tr>
         <th scope="colgroup" colspan="12">Gastos recurrentes</th>
     </tr>

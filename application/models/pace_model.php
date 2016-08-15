@@ -154,6 +154,23 @@ class Pace_model extends CI_Model{
 	return $query->result();
 	}
 	
+	public function getAllTipoGasto()
+	{
+	$sql="select * from p_tipo_gasto";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	}
+	
+	public function getAllItemTipoGasto()
+	{
+	$sql="select * from p_item_tipo_gasto";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	}
 }
 
 
