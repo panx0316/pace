@@ -7,15 +7,15 @@
  
  <div id="table_center">
   <?php foreach ($proyectos as $data_proyectos){ ?>
-<table border=1 style="width:400px">
+<table border=1 style="width:100%">
   <tr>
-  <td><?php echo "<b>Código</b>: ". $data_proyectos->P_CODIGO_PROYECTO; ?></td><td><?php echo $data_proyectos->P_NOMBRE_PROYECTO; ?></td><td><?php echo "<b>Avance</b> :".GetAvanceProyecto($data_proyectos->P_ID_PROYECTO)."%" ?></td>
+  <td><?php echo "<b>Código</b>: ". $data_proyectos->P_CODIGO_PROYECTO; ?></td><td><?php echo "<b>Proyecto</b>: ".$data_proyectos->P_NOMBRE_PROYECTO; ?></td><td><?php echo "<b>Avance</b> :".GetAvanceProyecto($data_proyectos->P_ID_PROYECTO)."%" ?></td>
   </tr>
  
 </table>
 <br><br>
 
-<table border=1 style="width:400px">
+<table border=1 style="width:100%">
 <tr>
 <td>Abreviacion</td><td>Estrategia</td><td>Avance</td><td>Atraso</td>
 <?php foreach ($areas as $data_areas){ ?>
