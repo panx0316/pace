@@ -19,7 +19,7 @@
                 <ul>
 				<?php foreach ($actividades as $data_actividades){ 
 					if($data_hitos->P_ID_HITO == $data_actividades->P_ID_HITO){ ?>
-                  <li><a href="#"><?php echo $data_actividades->P_NOMBRE_ACTIVIDAD." - Fecha Inicio:". FormatearFechaES($data_actividades->P_FECHA_INICIO)." / Fecha Término:". FormatearFechaES($data_actividades->P_FECHA_TERMINO)." / Valor Asignado:". $data_actividades->P_VALOR ." / Avance:". $data_actividades->P_PORC_AVANCE."%" ?></a><button type="button" class="btn btn-link">Editar</button></li>
+                  <li><a href="#"><?php echo $data_actividades->P_NOMBRE_ACTIVIDAD." - Fecha Inicio:". FormatearFechaES($data_actividades->P_FECHA_INICIO)." / Fecha Término:". FormatearFechaES($data_actividades->P_FECHA_TERMINO)." / Avance:". $data_actividades->P_PORC_AVANCE."%" ?></a><button type="button" class="btn btn-link">Editar</button></li>
 				  <?php } }  ?>
                 </ul>
               </li>
