@@ -4,7 +4,7 @@
   <div class="tree">
     <ul>
       <li class="tituloProyecto">
-        <a href="#" ><?php echo $data_proyectos->P_NOMBRE_PROYECTO." - Avance:".GetAvanceProyecto($data_proyectos->P_ID_PROYECTO)."%"; ?></a>
+        <a href="#" ><b><?php echo $data_proyectos->P_NOMBRE_PROYECTO."</b> - <b>Avance:</b>".GetAvanceProyecto($data_proyectos->P_ID_PROYECTO)."% - <b>Fecha Inicio</b>:".FormatearFechaES($data_proyectos->P_FECHA_INICIO)." - <b>Fecha Término</b>:".FormatearFechaES($data_proyectos->P_FECHA_TERMINO);  ?></a>
         <ul>
           <?php foreach ($areas as $data_areas){ ?>
           <?php if($data_areas->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>

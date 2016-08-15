@@ -42,3 +42,8 @@
 .container{
 	margin-bottom: 7%;
 }
+
+#table_center{
+	width:40%;
+	margin: 0 auto;
+}
