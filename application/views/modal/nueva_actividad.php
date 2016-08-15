@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-﻿<form id="form_nueva_actividad" class="form-horizontal" method="post" action="inicio/nueva_actividad_progress" enctype="multipart/form-data">
-=======
-﻿
+
 <script>
 		$(document).ready(function() {
 
@@ -76,7 +73,7 @@
 </script>
 
 <form id="form_nueva_actividad" class="form-horizontal" method="post" action="inicio/nueva_actividad_progress" enctype="multipart/form-data">
->>>>>>> origin/master
+
 
 <input type="hidden" name="fecha" value="<?php echo date('d/m/Y');?>">
   
