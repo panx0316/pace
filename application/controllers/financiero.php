@@ -18,7 +18,6 @@ class Financiero extends CI_Controller {
 		public function index()
 	{
 		$data['proyectos'] = $this->pace_model->getProyectos();
-		$data['hitos'] = $this->pace_model->getHitos();
 		$data['actividades'] = $this->pace_model->getActividades();
 		$data['areas'] = $this->pace_model->getAreas();
 		
