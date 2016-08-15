@@ -1,6 +1,11 @@
 ﻿
 <script>
 		$(document).ready(function() {
+
+		jQuery.validator.addMethod("letras", function(value, element) {
+        return this.optional(element) || /^[a-záéóóúàèìòùäëïöüñ\s]+$/i.test(value);
+        }); 
+			
 			
 			$( ".fecha" ).datepicker({
 			  changeMonth: true,
@@ -12,9 +17,9 @@
 				proyecto: {required: true},
 				titulo: {required: true},
 				rut_responsable: {required: true},
-				nombre_responsable: {required: true},
-				costo: {required: true},
-				descripcion: {required: true},
+				nombre_responsable: {required: true, letras:true},
+				costo: {required: true, number : true},
+				descripcion: {required: true, rangelength: [1,1000]},
 				fecha_inicio: {required: true},
 				fecha_termino: {required: true}
 				
@@ -23,9 +28,9 @@
 				proyecto: {required:"Seleccione un proyecto"},
 				titulo: {required:"Ingrese titulo de proyecto"},
 				rut_responsable: {required:"Ingrese un rut de responsable"},
-				nombre_responsable: {required:"Ingrese un nombre de responsable"},
-				costo: {required:"Ingrese costo"},
-				descripcion: {required:"Ingrese una descripción"},
+				nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
+				costo: {required:"Ingrese costo", number: "Ingrese solo numeros"},
+				descripcion: {required:"Ingrese una descripción", rangelength: "Máximo 1000 caracteres"},
 				fecha_inicio: {required:"Ingrese una fecha de inicio"},
 				fecha_termino: {required:"Ingrese una fecha de termino"}
 			},
