@@ -11,25 +11,27 @@
   <tr>
   <td><?php echo "<b>Código</b>: ". $data_proyectos->P_CODIGO_PROYECTO; ?></td><td><?php echo "<b>Proyecto</b>: " .$data_proyectos->P_NOMBRE_PROYECTO; ?></td>
   </tr>
- 
+ <?php } ?> 
 </table>
 <br><br>
 
 <table border=1 style="width:100%;">
-    <tr>
-        <th scope="colgroup" colspan="12">Gastos Adquiribles</th>
+<tr>
+        <th scope="colgroup" colspan="12">Gasto adquirible</th>
     </tr>
     <tr>
         <th scope="colgroup" colspan="12">Bienes</th>
-    </tr><tr>
+    </tr>
+    <tr>
         <th scope="colgroup" colspan="12">Obras menores</th>
     </tr>
     <tr>
-        <th scope="colgroup" colspan="12">Servicio de consultoría</th>
+        <th scope="colgroup" colspan="12">Servicios de consultería</th>
     </tr>
     <tr>
-        <th scope="colgroup" colspan="12">Servicios de no consultoría</th>
+        <th scope="colgroup" colspan="12">Servicios de no consultería</th>
     </tr>
+
         <tr>
         <th>Estrategia</th>
         <th>Componente</th>
@@ -40,10 +42,9 @@
         <th>Monto gastado</th>
         <th>Saldo</th>
         <th>estado</th>
-    </tr> 
+    </tr>
     <?php foreach ($gastos as $data_gastos){ ?>
-    <?php if($data_gastos->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
-
+        <?php if($data_gastos->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
     <tr>
         <th><?php echo $data_gastos->P_ABREVIACION_AREA; ?></th>
         <td><?php echo $data_gastos->P_NOMBRE_ACTIVIDAD; ?></td>
@@ -69,11 +70,6 @@
     </tr>
 <?php } ?>
 <?php } ?>
-    <tr>
-        <th scope="colgroup" colspan="12">Gastos recurrentes</th>
-    </tr>
  </table>
 
-
- <?php } ?>
 </div>
