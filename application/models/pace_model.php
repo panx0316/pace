@@ -145,6 +145,15 @@ class Pace_model extends CI_Model{
 		}
 	}
 	
+	public function getDetalleGasto()
+	{
+	$sql="select * from v_detalle_gastos";
+
+	$query = $this->db->query($sql);
+	
+	return $query->result();
+	}
+	
 }
 
 

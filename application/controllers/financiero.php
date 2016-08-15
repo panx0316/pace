@@ -21,6 +21,10 @@ class Financiero extends CI_Controller {
 		$data['actividades'] = $this->pace_model->getActividades();
 		$data['areas'] = $this->pace_model->getAreas();
 		
+		//aca va la linea donde llamamos al detalle de los gastos
+		$data['gastos'] = $this->pace_model->getDetalleGasto();
+		
+		
 		$this->template->load('template', 'financiero', $data);
 		//$this->template->load('plantilla', 'controlador', dato);
 	}
