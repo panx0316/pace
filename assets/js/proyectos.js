@@ -27,6 +27,33 @@ $(document).ready(function() {
 	
 	});
 	
+	$("#addArea").on("click", function(){
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/nuevaArea/',
+			success: function (data, status)
+			{
+				if(data != ''){
+					$.createModal({
+						title:'Agregar Área',
+						message: data,
+						closeButton:false,
+						idModal:'modal_add_area'
+						
+					});
+				}
+			},
+			error: function(jqXHR, estado, error)
+			{
+					console.log(error);
+					alert(error);
+			},
+					timeout: 10000
+					
+		});
+	
+	});
+	
 		
 
 	$.datepicker.regional['es'] = {

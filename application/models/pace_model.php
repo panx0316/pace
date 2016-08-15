@@ -39,6 +39,29 @@ class Pace_model extends CI_Model{
 	return $query->result();
 	
 	}
+	public function getAvanceHitos($id_proyecto,$id_area,$id_hito)
+	{	
+	$sql="select PORCENTAJE_HITO from V_PROMEDIO_HITO WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_AREA='{$id_area}' AND P_ID_HITO='{$id_hito}'";
+	$query = $this->db->query($sql);
+	$porcentaje=($query->row()->PORCENTAJE_HITO);
+	return $porcentaje;
+	}
+	
+	public function getAvanceArea($id_proyecto,$id_area)
+	{	
+	$sql="select PORCENTAJE_AREA from V_PROMEDIO_AREA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_AREA='{$id_area}' ";
+	$query = $this->db->query($sql);
+	$porcentaje=($query->row()->PORCENTAJE_AREA);
+	return $porcentaje;
+	}
+	
+	public function getAvanceProyecto($id_proyecto)
+	{	
+	$sql="select PORCENTAJE_PROYECTO from V_PROMEDIO_PROYECTO WHERE P_ID_PROYECTO='{$id_proyecto}' ";
+	$query = $this->db->query($sql);
+	$porcentaje=($query->row()->PORCENTAJE_PROYECTO);
+	return $porcentaje;
+	}
 	
 	public function getActividades()
 	{
