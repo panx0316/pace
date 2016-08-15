@@ -146,6 +146,5 @@ class Pace_model extends CI_Model{
 	}
 	
 }
-	
 
 
