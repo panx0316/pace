@@ -47,3 +47,11 @@
 	width:80%;
 	margin: 0 auto;
 }
+.tipo_gasto{
+    height: 50px !important;
+}
+.clase_gastos{
+text-align: center;
+    background-color: #d3dae0;
+    height: 45px;
+	}

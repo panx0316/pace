@@ -88,5 +88,12 @@ class Inicio extends CI_Controller {
 	}
 	
 	
+	public function prueba()
+	{
+		
+		$this->template->load('template', 'prueba');
+		//$this->template->load('plantilla', 'controlador', dato);
+	}
+	
 	
 }

@@ -3,7 +3,7 @@
  </div>
  <br>
  <br>
- 
+ <?php $i=0;?>
  
  <div id="table_center">
   <?php foreach ($proyectos as $data_proyectos){ ?>
@@ -17,14 +17,15 @@
 
 <table border=1 style="width:100%;">
 	<tr>
-        <th scope="colgroup" colspan="12">Gastos Adquiribles</th>
+        <th scope="colgroup" colspan="12" class="clase_gastos">Gastos Adquiribles</th>
     </tr>
-     <?php foreach ($item_tipo_gastos as $data_adquiribles){ ?>
-	  <tr>
-        <th scope="colgroup" colspan="12"><?php echo $data_adquiribles->P_NOMBRE_ITEM_TIPO_GASTO; ?></th>
-		
+     <?php foreach ($item_tipo_gastos as $data_adquiribles){ 
+	 $i++;
+	 ?>
+	  <tr data-toggle="collapse" data-target=".demo<?php echo $i; ?>" class="accordion-toggle">
+        <th scope="colgroup" colspan="12" class="tipo_gasto" ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span><?php echo " ".$data_adquiribles->P_NOMBRE_ITEM_TIPO_GASTO; ?></th>
     </tr>
-        <tr>
+        <tr  class="hiddenRow accordian-body collapse demo<?php echo $i; ?>" >
         <th>Estrategia</th>
         <th>Componente</th>
         <th>Resultado</th>
@@ -39,7 +40,7 @@
     <?php foreach ($gastos as $data_gastos){ ?>
     <?php if($data_gastos->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
 
-    <tr>
+    <tr  class="hiddenRow accordian-body collapse demo<?php echo $i; ?>" >
         <th><?php echo $data_gastos->P_ABREVIACION_AREA; ?></th>
         <td><?php echo $data_gastos->P_NOMBRE_ACTIVIDAD; ?></td>
         <td><?php echo "RESULTADO"; ?></td>
@@ -67,7 +68,7 @@
 	 <?php } ?>
 	 <?php } ?>
     <tr>
-        <th scope="colgroup" colspan="12">Gastos recurrentes</th>
+        <th scope="colgroup" colspan="12" class="clase_gastos" >Gastos recurrentes</th>
     </tr>
  </table>
 
