@@ -36,9 +36,9 @@
         <th>Saldo</th>
         <th>estado</th>
     </tr> 
-		<?php if($data_adquiribles->P_ID_ITEM_TIPO_GASTO ==3){ ?>
+		<?php //if($data_adquiribles->P_ID_ITEM_TIPO_GASTO ==3){ ?>
     <?php foreach ($gastos as $data_gastos){ ?>
-    <?php if($data_gastos->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
+    <?php if($data_gastos->P_ID_ITEM_TIPO_GASTO == $data_adquiribles->P_ID_ITEM_TIPO_GASTO){ ?>
 
     <tr  class="hiddenRow accordian-body collapse demo<?php echo $i; ?>" >
         <th><?php echo $data_gastos->P_ABREVIACION_AREA; ?></th>
@@ -65,7 +65,7 @@
     </tr>
 <?php } ?>
 <?php } ?>
-	 <?php } ?>
+	 <?php //} ?>
 	 <?php } ?>
     <tr>
         <th scope="colgroup" colspan="12" class="clase_gastos" >Gastos recurrentes</th>
