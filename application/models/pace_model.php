@@ -188,6 +188,34 @@ class Pace_model extends CI_Model{
 	
 	}
 	
+	public function setEditProyecto($data){
+		if($data != FALSE)
+		{
+			$this->db->trans_start();
+		$datos = array(
+            'P_NOMBRE_ACTIVIDAD' => $data['NOMBRE_ACTIVIDAD'],
+            'P_RESPONSABLE_ACTIVIDAD' => $data['RUT_RESPONSABLE'],
+            'P_DESCRIPCION' => $data['DESCRIPCION'],
+            'P_PORC_AVANCE' => $data['AVANCE']
+        );
+		$this->db->where('P_ID_ACTIVIDAD', $data['ID']);
+		$this->db->update('p_actividad', $datos);
+			
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE)
+			{
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+			
+		}
+	}
+	
+	
 	
 }
 

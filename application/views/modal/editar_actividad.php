@@ -55,6 +55,7 @@
 <form id="form_editar_actividad" class="form-horizontal" method="post" action="inicio/editar_actividad_progress" enctype="multipart/form-data">
 
 <input type="hidden" name="fecha" value="<?php echo date('d/m/Y');?>">
+<input type="hidden" id="id_actividad" name="id_actividad" value="<?php echo $actividades[0]->P_ID_ACTIVIDAD; ?>">
   
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Título</label>

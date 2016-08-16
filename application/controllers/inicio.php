@@ -97,5 +97,43 @@ class Inicio extends CI_Controller {
 		
 	}
 	
+	public function editar_actividad_progress(){
+		if($_POST)
+		{
+		
+		$id_actividad = $this->input->post("id_actividad");
+		$titulo = $this->input->post("titulo");
+		$rut_responsable = $this->input->post("rut_responsable");
+		$nombre_responsable = $this->input->post("nombre_responsable");
+		
+		$descripcion = $this->input->post("descripcion");
+		$avance = $this->input->post("avance");
+		// $fecha_inicio = $this->input->post("fecha_inicio");
+		// $fecha_termino = $this->input->post("fecha_termino");
+			
+		$data=array(
+			"ID"=>$id_actividad,
+			"NOMBRE_ACTIVIDAD"=>$titulo,
+			"RUT_RESPONSABLE"=>$rut_responsable,
+			"NOMBRE_RESPONSABLE"=>$nombre_responsable,
+			"DESCRIPCION"=>$descripcion,
+			"AVANCE"=>$avance
+		);
+		
+		$resultado = $this->pace_model->setEditProyecto($data);
+		
+		if($resultado!=FALSE){
+		$mensaje='<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Datos Guardados correctamente</strong></div>';	
+		}
+		else{
+		$mensaje='<div class="alert alert-danger"><strong>Error al guardar los datos</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		echo $mensaje;
+		}
+		else{
+		echo '<div class="alert alert-danger"><strong>NO HAY DATOS ENVIADOS</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		
+	}
 	
 }
