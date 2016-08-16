@@ -36,11 +36,17 @@
         <th>Saldo</th>
         <th>estado</th>
     </tr> 
-		<?php //if($data_adquiribles->P_ID_ITEM_TIPO_GASTO ==3){ ?>
+		
     <?php foreach ($gastos as $data_gastos){ ?>
+	
+	
     <?php if($data_gastos->P_ID_ITEM_TIPO_GASTO == $data_adquiribles->P_ID_ITEM_TIPO_GASTO){ ?>
-
+	
+	
+	
+	
     <tr  class="hiddenRow accordian-body collapse demo<?php echo $i; ?>" >
+		
         <th><?php echo $data_gastos->P_ABREVIACION_AREA; ?></th>
         <td><?php echo $data_gastos->P_NOMBRE_ACTIVIDAD; ?></td>
         <td><?php echo "RESULTADO"; ?></td>
@@ -48,6 +54,8 @@
         <td><?php echo $data_gastos->P_DETALLE_ITEM ?></td>
         <td><?php echo $data_gastos->P_COSTO_PLANIF ?></td>
         <td><?php echo $data_gastos->P_COSTO ?></td>
+		
+		
 		
 		<?php $subtotal=(($data_gastos->P_COSTO_PLANIF)-($data_gastos->P_COSTO));
 		if($subtotal<0){
@@ -65,7 +73,7 @@
     </tr>
 <?php } ?>
 <?php } ?>
-	 <?php //} ?>
+	
 	 <?php } ?>
     <tr>
         <th scope="colgroup" colspan="12" class="clase_gastos" >Gastos recurrentes</th>
