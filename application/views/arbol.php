@@ -36,7 +36,16 @@
 </div>
 
 
-<button type="button" id="addProject" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Proyecto</button>
-<button type="button" id="addArea" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Área</button>
-<button type="button" id="addHito" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Hito</button>
-<button type="button" id="addActividad" class="btn btn-default"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad</button>
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle"
+          data-toggle="dropdown">
+   Agregar <span class="caret"></span>
+  </button>
+ 
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#" id="addProject"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Proyecto</a></li>
+    <li><a href="#" id="addArea"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Área</a></li>
+    <li><a href="#" id="addHito"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Hito</a></li>
+    <li><a href="#" id="addActividad"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad</a></li>
+  </ul>
+</div>
