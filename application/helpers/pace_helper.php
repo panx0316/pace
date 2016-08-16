@@ -103,3 +103,24 @@ if(!function_exists('GetAvanceProyecto'))
 		}
 	}
 }
+
+if(!function_exists('GetNombreResponsable'))
+{
+	function GetNombreResponsable($rut)
+	{
+		$CI= & get_instance(); 
+		$CI->load->model('pace_model');
+		if(isset($rut))
+		{
+			
+			$nombre = $CI->pace_model->getNombreResponsable($rut);
+
+			
+			return $nombre;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+}

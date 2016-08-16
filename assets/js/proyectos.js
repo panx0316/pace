@@ -107,7 +107,34 @@ $(document).ready(function() {
 		});
 	
 	});
-		
+		$(".editar_actividad").on("click", function(){
+			var id=$(this).data("id");
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/editarActividad/',
+			data:{id_actividad:id},
+			success: function (data, status)
+			{
+				if(data != ''){
+					$.createModal({
+						title:'Editar Actividad',
+						message: data,
+						closeButton:false,
+						idModal:'modal_edit_actividad'
+						
+					});
+				}
+			},
+			error: function(jqXHR, estado, error)
+			{
+					console.log(error);
+					alert(error);
+			},
+					timeout: 10000
+					
+		});
+	
+	});	
 
 	$.datepicker.regional['es'] = {
         closeText: 'Cerrar',

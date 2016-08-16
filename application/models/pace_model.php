@@ -63,9 +63,14 @@ class Pace_model extends CI_Model{
 	return $porcentaje;
 	}
 	
-	public function getActividades()
+	public function getActividades($id=FALSE)
 	{
-	$sql="select * from p_actividad";
+	if($id!=FALSE){
+	$sql="select * from p_actividad where P_ID_ACTIVIDAD='{$id}' ";	
+	}
+	else{
+	$sql="select * from p_actividad";	
+	}
 
 	$query = $this->db->query($sql);
 	
@@ -171,6 +176,19 @@ class Pace_model extends CI_Model{
 	
 	return $query->result();
 	}
+	
+	public function getNombreResponsable($rut)
+	{
+	$sql="select P_NOMBRE_USUARIO from p_usuario where P_RUT_RESPONSABLE='{$rut}'";
+
+	$query = $this->db->query($sql);
+	
+	$nombre=($query->row()->P_NOMBRE_USUARIO);
+	return $nombre;
+	
+	}
+	
+	
 }
 
 

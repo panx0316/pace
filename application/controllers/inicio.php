@@ -88,11 +88,13 @@ class Inicio extends CI_Controller {
 	}
 	
 	
-	public function prueba()
+	public function editarActividad()
 	{
+		$id = $this->input->post("id_actividad");
+		$data['actividades'] = $this->pace_model->getActividades($id);
 		
-		$this->template->load('template', 'prueba');
-		//$this->template->load('plantilla', 'controlador', dato);
+		$this->load->view('modal/editar_actividad', $data);
+		
 	}
 	
 	
