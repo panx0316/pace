@@ -11,15 +11,30 @@
 			  changeMonth: true,
 			  changeYear: true
 			});
+			$( "#fecha_inicio" ).on("change", function(){
+				var fecha_inicio=$(this).val();
+				if(fecha_inicio!=''){
+				 $("#fecha_inicio").removeClass('error');
+				 $("#fecha_inicio-error").hide();
+				}
+			});
+			$( "#fecha_termino" ).on("change", function(){
+				var fecha_termino=$(this).val();
+			if(fecha_termino!=''){
+			 $("#fecha_termino").removeClass('error');
+			 $("#fecha_termino-error").hide();
+			}
+			});
+			
 
-			$("#form_nuevo_proyecto").validate({
+			$("#form_nueva_actividad").validate({
 			rules: {
 				proyecto: {required: true},
 				area: {required: true},
 				hito: {required: true},
 				titulo: {required: true},
 				rut_responsable: {required: true},
-				nombre_responsable: {required: true, letras:true},
+				// nombre_responsable: {required: true, letras:true},
 				costo: {required: true, number : true},
 				descripcion: {required: true, rangelength: [1,1000]},
 				fecha_inicio: {required: true},
@@ -32,7 +47,7 @@
 				hito: {required:"Seleccione un hito del proyecto"} ,
 				titulo: {required:"Ingrese titulo de proyecto"},
 				rut_responsable: {required:"Ingrese un rut de responsable"},
-				nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
+				// nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
 				costo: {required:"Ingrese costo", number: "Ingrese solo numeros"},
 				descripcion: {required:"Ingrese una descripción", rangelength: "Máximo 1000 caracteres"},
 				fecha_inicio: {required:"Ingrese una fecha de inicio"},
@@ -68,6 +83,76 @@
 				});
 			}
 		});
+		
+		
+	$('#proyecto').on('change', function (){
+		var opcion = $(this).val();
+
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/getAreas',
+			data: {opcion : opcion},
+			success: function (data, status)
+			{
+				if(opcion==''){
+				$('#area').attr('readonly',true);
+				$('#area').attr('disabled',true);
+				$('#area').val("");
+				$('#hito').attr('readonly',true);
+				$('#hito').attr('disabled',true);	
+				$('#hito').val("");
+				}
+				else{
+				if(data!=''){
+				$('#area').html(data);
+				$('#area').attr('readonly',false);	
+				$('#area').attr('disabled',false);
+				$('#hito').attr('readonly',false);	
+				$('#hito').attr('disabled',false);	
+				}
+				}
+				
+			},
+			error: function(jqXHR, estado, error)
+			{
+				console.log(error);
+				alert(error);
+			},
+			timeout: 20000
+		}); 
+	});
+		
+	$('#area').on('change', function (){
+		var area = $(this).val();
+		var proyecto = $("#proyecto").val();
+
+		if(proyecto=='' || area==''){
+			$('#hito').attr('readonly',true);
+			$('#hito').attr('disabled',false);	
+		}
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/getHitos',
+			data: {area : area, proyecto:proyecto},
+			success: function (data, status)
+			{
+				
+				if(data!=''){
+					$('#hito').html(data);
+					$('#hito').attr('readonly',false);	
+					$('#hito').attr('disabled',false);	
+				}
+				
+				
+			},
+			error: function(jqXHR, estado, error)
+			{
+				console.log(error);
+				alert(error);
+			},
+			timeout: 20000
+		}); 
+	});	
 	
 	});
 </script>
@@ -91,7 +176,7 @@
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Área</label>
 		<div class="col-sm-8">
-		  <select class="form-control" id="area" name="area">
+		  <select class="form-control" id="area" name="area" disabled readonly>
 		  <option value="">--Seleccione un área--</option>
 		  <?php foreach ($areas as $data_areas){
 		  echo "<option value=".$data_areas->P_ID_AREA.">".$data_areas->P_NOMBRE_AREA."</option>";
@@ -102,7 +187,7 @@
 <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Hito</label>
 		<div class="col-sm-8">
-		  <select class="form-control" id="hito" name="hito">
+		  <select class="form-control" id="hito" name="hito" disabled readonly>
 		  <option value="">--Seleccione un Hito--</option>
 		  <?php foreach ($hitos as $data_hitos){
 		  echo "<option value=".$data_hitos->P_ID_HITO.">".$data_hitos->P_NOMBRE_HITO."</option>";
@@ -125,7 +210,7 @@
    <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Nombre Responsable</label>
 		<div class="col-sm-6">
-		  <input type="text" class="form-control" id="nombre_responsable" name="nombre_responsable"></input>
+		  <input type="text" class="form-control" id="nombre_responsable" name="nombre_responsable" disabled></input>
 		</div>
   </div>
 <h4 class="form-legend">Recursos Asignados</h4>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inicio extends CI_Controller {
@@ -135,5 +135,155 @@ class Inicio extends CI_Controller {
 		}
 		
 	}
+	
+	public function nueva_area_progress(){
+		if($_POST)
+		{
+				
+		$proyecto = $this->input->post("proyecto");
+		$titulo = $this->input->post("titulo");
+		$abreviacion = $this->input->post("abreviacion");
+		$rut_responsable = $this->input->post("rut_responsable");
+
+			
+		$data=array(
+			"ID_PROYECTO"=>$proyecto,
+			"NOMBRE_AREA"=>$titulo,
+			"ABREV_AREA"=>$abreviacion,
+			"RUT_RESPONSABLE"=>$rut_responsable
+		);
+		
+		$resultado = $this->pace_model->setCreateArea($data);
+		
+		if($resultado!=FALSE){
+		$mensaje='<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Datos Guardados correctamente</strong></div>';	
+		}
+		else{
+		$mensaje='<div class="alert alert-danger"><strong>Error al guardar los datos</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		echo $mensaje;
+		}
+		else{
+		echo '<div class="alert alert-danger"><strong>NO HAY DATOS ENVIADOS</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		
+	}
+	
+	
+	public function getAreas(){
+		$opcion = $this->input->post("opcion");
+		$areas= $this->pace_model->getAreas($opcion);
+		
+			if($areas != FALSE)
+			{
+				$data = '<option value="">-- Seleccione Área --</option>';
+				foreach($areas as $data_areas)
+				{
+						$data .= '<option value="'.$data_areas->P_ID_AREA.'">'.$data_areas->P_NOMBRE_AREA.' ('.$data_areas->P_ABREVIACION_AREA.') </option>';
+				}
+				echo $data;
+			}
+	}	
+	
+	public function getHitos(){
+		$proyecto = $this->input->post("proyecto");
+		$areas_proyecto = $this->input->post("area");
+		$hitos= $this->pace_model->getHitos($proyecto, $areas_proyecto);
+		
+			if($hitos != FALSE)
+			{
+				$data = '<option value="">-- Seleccione Hito --</option>';
+				foreach($hitos as $data_hitos)
+				{
+						$data .= '<option value="'.$data_hitos->P_ID_HITO.'">'.$data_hitos->P_NOMBRE_HITO.'</option>';
+				}
+				echo $data;
+			}
+	}
+	
+	public function nuevo_hito_progress(){
+		if($_POST)
+		{
+				
+		$proyecto = $this->input->post("proyecto");
+		$area = $this->input->post("area");
+		$titulo = $this->input->post("titulo");
+		$rut_responsable = $this->input->post("rut_responsable");
+		$descripcion = $this->input->post("descripcion");
+
+			
+		$data=array(
+			"ID_PROYECTO"=>$proyecto,
+			"ID_AREA"=>$area,
+			"NOMBRE_HITO"=>$titulo,
+			"RUT_RESPONSABLE"=>$rut_responsable,
+			"DESCRIPCION"=>$descripcion
+		);
+		
+		$resultado = $this->pace_model->setCreateHito($data);
+		
+		if($resultado!=FALSE){
+		$mensaje='<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Datos Guardados correctamente</strong></div>';	
+		}
+		else{
+		$mensaje='<div class="alert alert-danger"><strong>Error al guardar los datos</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		echo $mensaje;
+		}
+		else{
+		echo '<div class="alert alert-danger"><strong>NO HAY DATOS ENVIADOS</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		
+	}
+	
+	public function nueva_actividad_progress(){
+		if($_POST)
+		{
+				
+		$proyecto = $this->input->post("proyecto");
+		$area = $this->input->post("area");
+		$hito = $this->input->post("hito");
+		$titulo = $this->input->post("titulo");
+		$costo = $this->input->post("costo");
+		$descripcion = $this->input->post("descripcion");
+		
+		$rut_responsable = $this->input->post("rut_responsable");
+		$nombre_responsable = $this->input->post("nombre_responsable");
+		
+		$fecha_inicio = $this->input->post("fecha_inicio");
+		
+		$fecha_termino = $this->input->post("fecha_termino");
+
+			
+		$data=array(
+			"ID_PROYECTO"=>$proyecto,
+			"ID_AREA"=>$area,
+			"ID_HITO"=>$hito,
+			"NOMBRE_ACTIVIDAD"=>$titulo,
+			"RUT_RESPONSABLE"=>$rut_responsable,
+			"FECHA_INI"=>$fecha_inicio,
+			"FECHA_TER"=>$fecha_termino,
+			"DESCRIPCION"=>$descripcion
+		);
+		
+		$resultado = $this->pace_model->setCreateActividad($data);
+		
+		if($resultado!=FALSE){
+		$mensaje='<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Datos Guardados correctamente</strong></div>';	
+		}
+		else{
+		$mensaje='<div class="alert alert-danger"><strong>Error al guardar los datos</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		echo $mensaje;
+		}
+		else{
+		echo '<div class="alert alert-danger"><strong>NO HAY DATOS ENVIADOS</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		
+	}
+	
+	
+	
+	
 	
 }

@@ -5,6 +5,21 @@
  <br>
  <?php $i=0;?>
  
+ <div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle"
+          data-toggle="dropdown">
+   Agregar <span class="caret"></span>
+  </button>
+ 
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#" id="addProject"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Proyecto</a></li>
+    <li><a href="#" id="addArea"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Área</a></li>
+    <li><a href="#" id="addHito"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Hito</a></li>
+    <li><a href="#" id="addActividad"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad</a></li>
+  </ul>
+</div>
+ 
+ 
  <div id="table_center">
   <?php foreach ($proyectos as $data_proyectos){ ?>
 <table border=1 style="width:100%">
@@ -80,6 +95,7 @@
     </tr>
  </table>
 
+ <br><br><br>
 
  <?php } ?>
 </div>

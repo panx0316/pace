@@ -30,10 +30,18 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getHitos()
+	public function getHitos($proyecto=FALSE,$area=FALSE)
 	{
+	
+	echo $area;
+	if($proyecto!=FALSE && $area!=FALSE ){
+	$sql="select * from p_hitos where P_ID_AREA='{$area}' AND P_ID_PROYECTO='{$proyecto}' ";	
+	}
+	else{
 	$sql="select * from p_hitos";
+	}	
 
+	
 	$query = $this->db->query($sql);
 	
 	return $query->result();
@@ -44,6 +52,9 @@ class Pace_model extends CI_Model{
 	$sql="select PORCENTAJE_HITO from V_PROMEDIO_HITO WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_AREA='{$id_area}' AND P_ID_HITO='{$id_hito}'";
 	$query = $this->db->query($sql);
 	$porcentaje=($query->row()->PORCENTAJE_HITO);
+	if($porcentaje==null){
+		$porcentaje=0;
+	}
 	return $porcentaje;
 	}
 	
@@ -52,6 +63,9 @@ class Pace_model extends CI_Model{
 	$sql="select PORCENTAJE_AREA from V_PROMEDIO_AREA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_AREA='{$id_area}' ";
 	$query = $this->db->query($sql);
 	$porcentaje=($query->row()->PORCENTAJE_AREA);
+	if($porcentaje==null){
+		$porcentaje=0;
+	}
 	return $porcentaje;
 	}
 	
@@ -60,6 +74,9 @@ class Pace_model extends CI_Model{
 	$sql="select PORCENTAJE_PROYECTO from V_PROMEDIO_PROYECTO WHERE P_ID_PROYECTO='{$id_proyecto}' ";
 	$query = $this->db->query($sql);
 	$porcentaje=($query->row()->PORCENTAJE_PROYECTO);
+	if($porcentaje==null){
+		$porcentaje=0;
+	}
 	return $porcentaje;
 	}
 	
@@ -78,10 +95,18 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getAreas()
+	public function getAreas($proyecto=FALSE)
 	{
-	$sql="select * from p_area";
+	
 
+	if($proyecto!=FALSE){
+	$sql="select * from p_area where P_ID_PROYECTO='{$proyecto}' ";	
+	}
+	else{
+	$sql="select * from p_area";	
+	}
+	
+	
 	$query = $this->db->query($sql);
 	
 	return $query->result();
@@ -215,6 +240,176 @@ class Pace_model extends CI_Model{
 		}
 	}
 	
+	public function setCreateArea($data){
+		if($data != FALSE)
+		{
+			$this->db->trans_start();
+			
+			$consulta = $this->db->query("select P_ID_USUARIO,P_NOMBRE_USUARIO from p_usuario WHERE P_RUT_RESPONSABLE='".$data['RUT_RESPONSABLE']."'");
+		
+				if($consulta->row()->P_ID_USUARIO != NULL)
+				{
+					$id_responsable = ($consulta->row()->P_ID_USUARIO);
+					$nombre_responsable = ($consulta->row()->P_NOMBRE_USUARIO);
+				}
+				else
+				{
+					return FALSE;
+				}
+			
+
+			$query = $this->db->query("select max(P_ID_AREA) as MAX_ID from p_area");
+		
+				if($query->row()->MAX_ID != NULL)
+				{
+					$id = ($query->row()->MAX_ID+1);
+				}
+				else
+				{
+					$id = 1;
+				}
+
+			$this->db->set('P_ID_AREA', $id);
+			$this->db->set('P_NOMBRE_AREA', $data['NOMBRE_AREA']);
+			$this->db->set('P_ABREVIACION_AREA', $data['ABREV_AREA']);
+			$this->db->set('P_ID_PROYECTO', $data['ID_PROYECTO']);
+			$this->db->set('P_ID_RESPONSABLE', $id_responsable);
+		
+			
+			$this->db->insert('p_area');
+			
+			
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE)
+			{
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+			
+		}
+	}
+	
+	public function setCreateHito($data){
+		if($data != FALSE)
+		{
+			$this->db->trans_start();
+			
+			$consulta = $this->db->query("select P_ID_USUARIO,P_NOMBRE_USUARIO from p_usuario WHERE P_RUT_RESPONSABLE='".$data['RUT_RESPONSABLE']."'");
+		
+				if($consulta->row()->P_ID_USUARIO != NULL)
+				{
+					$id_responsable = ($consulta->row()->P_ID_USUARIO);
+					$nombre_responsable = ($consulta->row()->P_NOMBRE_USUARIO);
+				}
+				else
+				{
+					return FALSE;
+				}
+			
+
+			$query = $this->db->query("select max(P_ID_HITO) as MAX_ID from p_hitos");
+		
+				if($query->row()->MAX_ID != NULL)
+				{
+					$id = ($query->row()->MAX_ID+1);
+				}
+				else
+				{
+					$id = 1;
+				}
+
+			$this->db->set('P_ID_HITO', $id);
+			$this->db->set('P_ID_AREA', $data['ID_AREA']);
+			$this->db->set('P_NOMBRE_HITO', $data['NOMBRE_HITO']);
+			$this->db->set('P_ID_PROYECTO', $data['ID_PROYECTO']);
+			$this->db->set('P_ID_RESPONSABLE', $id_responsable);
+		
+			
+			$this->db->insert('p_hitos');
+			
+			
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE)
+			{
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+			
+		}
+	}
+	
+	public function setCreateActividad($data){
+		if($data != FALSE)
+		{
+			$this->db->trans_start();
+			
+			$consulta = $this->db->query("select P_ID_USUARIO,P_NOMBRE_USUARIO,P_RUT_RESPONSABLE from p_usuario WHERE P_RUT_RESPONSABLE='".$data['RUT_RESPONSABLE']."'");
+		
+				if($consulta->row()->P_ID_USUARIO != NULL)
+				{
+					$id_responsable = ($consulta->row()->P_ID_USUARIO);
+					$rut_responsable = ($consulta->row()->P_RUT_RESPONSABLE);
+					$nombre_responsable = ($consulta->row()->P_NOMBRE_USUARIO);
+				}
+				else
+				{
+					return FALSE;
+				}
+			
+
+			$query = $this->db->query("select max(P_ID_ACTIVIDAD) as MAX_ID from p_actividad");
+		
+				if($query->row()->MAX_ID != NULL)
+				{
+					$id = ($query->row()->MAX_ID+1);
+				}
+				else
+				{
+					$id = 1;
+				}
+
+				
+			$fecha_ini=FormatearFecha($data['FECHA_INI']);
+			$fecha_ter=FormatearFecha($data['FECHA_TER']);	
+				
+				
+			$this->db->set('P_ID_PROYECTO', $data['ID_PROYECTO']);
+			$this->db->set('P_ID_AREA', $data['ID_AREA']);
+			$this->db->set('P_ID_HITO', $data['ID_HITO']);
+			$this->db->set('P_ID_ACTIVIDAD', $id);
+			$this->db->set('P_NOMBRE_ACTIVIDAD', $data['NOMBRE_ACTIVIDAD']);
+			$this->db->set('P_RESPONSABLE_ACTIVIDAD', $data['RUT_RESPONSABLE']);
+			$this->db->set('P_DESCRIPCION', $data['DESCRIPCION']);
+			$this->db->set('P_FECHA_INICIO', $fecha_ini);
+			$this->db->set('P_FECHA_TERMINO', $fecha_ter);
+			
+			$this->db->insert('p_actividad');
+			
+			
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE)
+			{
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+			
+		}
+		else{
+				return FALSE;
+		}
+	}
 	
 	
 }

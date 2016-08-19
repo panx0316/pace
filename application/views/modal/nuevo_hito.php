@@ -1,4 +1,4 @@
-<script>
+﻿<script>
 		$(document).ready(function() {
 			
 		jQuery.validator.addMethod("letras", function(value, element) {
@@ -10,17 +10,16 @@
 			  changeYear: true
 			});
 
-			$("#form_nuevo_proyecto").validate({
+			$("#form_nuevo_hito").validate({
 			rules: {
 				proyecto: {required: true},
 				area: {required: true},
 				titulo: {required: true},
 				rut_responsable: {required: true},
-				nombre_responsable: {required: true, letras:true},
-				costo: {required: true, number : true},
-				descripcion: {required: true, rangelength: [1,1000]},
-				fecha_inicio: {required: true},
-				fecha_termino: {required: true}
+				// nombre_responsable: {required: true, letras:true},
+				
+				descripcion: {required: true, rangelength: [1,1000]}
+				
 				
 			},
 			messages: {
@@ -28,11 +27,9 @@
 				area: {required:"Seleccione un area del proyecto"} ,
 				titulo: {required:"Ingrese titulo de proyecto"},
 				rut_responsable: {required:"Ingrese un rut de responsable"},
-				nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
-				costo: {required:"Ingrese costo", number: "Ingrese solo numeros"},
-				descripcion: {required:"Ingrese una descripción", rangelength: "Máximo 1000 caracteres"},
-				fecha_inicio: {required:"Ingrese una fecha de inicio"},
-				fecha_termino: {required:"Ingrese una fecha de termino"}
+				// nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
+				descripcion: {required:"Ingrese una descripción", rangelength: "Máximo 1000 caracteres"}
+				
 			},
 			submitHandler: function() {
 			
@@ -64,7 +61,42 @@
 				});
 			}
 		});
-	
+		
+		
+		$('#proyecto').on('change', function (){
+		var opcion = $(this).val();
+
+		
+		$.ajax({
+			type: 'post',
+			url:  host+'inicio/getAreas',
+			data: {opcion : opcion},
+			success: function (data, status)
+			{
+				if(opcion==''){
+					$('#area').attr('readonly',true);
+					$('#area').attr('disabled',false);	
+				}
+				else{
+					if(data!=''){
+					$('#area').html(data);
+					$('#area').attr('readonly',false);	
+					$('#area').attr('disabled',false);	
+					}
+				}
+				
+				
+			},
+			error: function(jqXHR, estado, error)
+			{
+				console.log(error);
+				alert(error);
+			},
+			timeout: 20000
+		}); 
+	});
+		
+			
 	});
 </script>
 
@@ -87,7 +119,7 @@
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Área</label>
 		<div class="col-sm-8">
-		  <select class="form-control" id="area" name="area">
+		  <select class="form-control" id="area" name="area" readonly disabled>
 		  <option value="">--Seleccione un Área--</option>
 		  <?php foreach ($areas as $data_areas){
 		  echo "<option value=".$data_areas->P_ID_AREA.">".$data_areas->P_NOMBRE_AREA."</option>";
@@ -107,46 +139,20 @@
 		  <input type="text" class="form-control" id="rut_responsable" name="rut_responsable"></input>
 		</div>
   </div>
-   <div class="form-group form-group-sm">
-		<label for="" class="col-sm-2 control-label">Nombre Responsable</label>
-		<div class="col-sm-6">
-		  <input type="text" class="form-control" id="nombre_responsable" name="nombre_responsable"></input>
-		</div>
-  </div>
-<h4 class="form-legend">Recursos Asignados</h4>
-    <div class="form-group form-group-sm">
-		<label for="" class="col-sm-2 control-label">Monetario</label>
-		<div class="col-sm-2">
-		  <input type="text" class="form-control" id="costo" name="costo"></input>
-		</div>
-  </div>
+
 		  
   <div class="form-group form-group-sm">
-		<label for="" class="col-sm-2 control-label">Descripción del Proyecto</label>
+		<label for="" class="col-sm-2 control-label">Descripción del Hito</label>
 		<div class="col-sm-8">
 		  <textarea type="text" class="form-control" id="descripcion" name="descripcion" maxlength="500"></textarea>
 		</div>
   </div>
-   <div class="form-group form-group-sm">
-		
-			    <label for="" class="col-sm-2 control-label">Fecha Inicio</label>
-				<div class="rangoFecha">
-					<div class="col-sm-2">
-						<input type="text" name="fecha_inicio" id="fecha_inicio" class="form-control fecha fecha_inicio" placeholder="dd/mm/aaaa">
-					</div>
-					<label for="" class="col-sm-2 control-label">Fecha Término</label>
-					<div class="col-sm-2">
-						<input type="text" name="fecha_termino" id="fecha_termino" class="form-control fecha fecha_termino" placeholder="dd/mm/aaaa">
-					</div>
-					
-				</div>	
-		    
-    </div>
+
 
 	
   <div class="form-group">
 		<div class="col-sm-4" style="float: right;">
-			<button type="submit" class="btn btn-primary enviar_solicitud">Registrar Actividad</button>
+			<button type="submit" class="btn btn-primary enviar_solicitud">Registrar Hito</button>
 			<div id="resultado"></div>
 		</div>
 	</div>

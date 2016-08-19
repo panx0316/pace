@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Nueva
+Source Server         : Local
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : pace
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-16 07:20:50
+Date: 2016-08-18 23:59:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,8 @@ CREATE TABLE `p_actividad` (
 -- ----------------------------
 -- Records of p_actividad
 -- ----------------------------
-INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '100', '1', 'prueba', '1', '1');
+INSERT INTO `p_actividad` VALUES ('0', '1', 'NUEVA ACTIVIDAD', '166219132', '2016-08-18', '2016-08-19', '0', '0', '0', 'PRUEBA', '5', '4');
+INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '70', '1', 'prueba', '1', '1');
 INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '100', '1', 'prueba', '1', '1');
 INSERT INTO `p_actividad` VALUES ('3', '1', 'tercera actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '100', '1', 'prueba', '1', '1');
 INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '166219132', '2016-08-09', '2016-08-16', '10000', '50', '1', 'prueba', '2', '2');
@@ -53,6 +54,8 @@ INSERT INTO `p_actividad` VALUES ('6', '1', 'primera actividad tres', '166219132
 INSERT INTO `p_actividad` VALUES ('7', '1', 'segunda actividad tres', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '3', '3');
 INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '4', '3');
 INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '4', '3');
+INSERT INTO `p_actividad` VALUES ('10', '2', 'NUEVA ACTIVIDAD', '166219132', '2016-08-17', '2016-08-20', '0', '70', '0', 'PRUEBA DE ACTIVIDAD', '6', '5');
+INSERT INTO `p_actividad` VALUES ('11', '2', 'TEST', '166219132', '2016-08-18', '2016-08-24', '0', '0', '0', 'TEST ', '6', '5');
 
 -- ----------------------------
 -- Table structure for p_area
@@ -60,20 +63,25 @@ INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '1662191
 DROP TABLE IF EXISTS `p_area`;
 CREATE TABLE `p_area` (
   `P_ID_AREA` int(11) NOT NULL,
-  `P_NOMBRE_AREA` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `P_NOMBRE_AREA` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
   `P_ABREVIACION_AREA` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `P_ID_PROYECTO` int(11) DEFAULT NULL,
+  `P_ID_RESPONSABLE` int(11) NOT NULL,
   PRIMARY KEY (`P_ID_AREA`),
   KEY `P_ID_PROYECTO` (`P_ID_PROYECTO`),
-  CONSTRAINT `FK_AREA_PROYECTO` FOREIGN KEY (`P_ID_PROYECTO`) REFERENCES `p_proyecto` (`P_ID_PROYECTO`)
+  KEY `P_ID_RESPONSABLE` (`P_ID_RESPONSABLE`),
+  CONSTRAINT `FK_AREA_PROYECTO` FOREIGN KEY (`P_ID_PROYECTO`) REFERENCES `p_proyecto` (`P_ID_PROYECTO`),
+  CONSTRAINT `FK_ID_USUARIO` FOREIGN KEY (`P_ID_RESPONSABLE`) REFERENCES `p_usuario` (`P_ID_USUARIO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- ----------------------------
 -- Records of p_area
 -- ----------------------------
-INSERT INTO `p_area` VALUES ('1', 'AREA 1', 'PAAD', '1');
-INSERT INTO `p_area` VALUES ('2', 'AREA 2', 'PPV', '1');
-INSERT INTO `p_area` VALUES ('3', 'AREA 3', 'VEC', '1');
+INSERT INTO `p_area` VALUES ('1', 'AREA 1', 'PAAD', '1', '1');
+INSERT INTO `p_area` VALUES ('2', 'AREA 2', 'PPV', '1', '1');
+INSERT INTO `p_area` VALUES ('3', 'AREA 3', 'VEC', '1', '1');
+INSERT INTO `p_area` VALUES ('4', 'AREA 5', 'NEWARE', '1', '2');
+INSERT INTO `p_area` VALUES ('5', 'AREA 1 FERNANDO', 'NEWFER', '2', '2');
 
 -- ----------------------------
 -- Table structure for p_clasificacion_item
@@ -125,10 +133,11 @@ DROP TABLE IF EXISTS `p_hitos`;
 CREATE TABLE `p_hitos` (
   `P_ID_HITO` int(11) NOT NULL,
   `P_NOMBRE_HITO` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `P_VALOR_ASIGNADO` int(11) NOT NULL,
-  `P_TIEMPO_ASIGNADO` int(11) NOT NULL,
+  `P_VALOR_ASIGNADO` int(11) DEFAULT NULL,
+  `P_TIEMPO_ASIGNADO` int(11) DEFAULT NULL,
   `P_ID_PROYECTO` int(11) NOT NULL,
   `P_ID_AREA` int(11) NOT NULL,
+  `P_ID_RESPONSABLE` int(11) NOT NULL,
   PRIMARY KEY (`P_ID_HITO`),
   KEY `P_ID_PROYECTO` (`P_ID_PROYECTO`) USING BTREE,
   KEY `P_ID_AREA` (`P_ID_AREA`),
@@ -139,10 +148,12 @@ CREATE TABLE `p_hitos` (
 -- ----------------------------
 -- Records of p_hitos
 -- ----------------------------
-INSERT INTO `p_hitos` VALUES ('1', 'HITO DE PRUEBA 1', '5000', '50', '1', '1');
-INSERT INTO `p_hitos` VALUES ('2', 'HITO DE PRUEBA 2', '5000', '50', '1', '1');
-INSERT INTO `p_hitos` VALUES ('3', 'HITO DE PRUEBA 3', '5000', '50', '1', '2');
-INSERT INTO `p_hitos` VALUES ('4', 'HITO DE PRUEBA 4', '5000', '50', '1', '3');
+INSERT INTO `p_hitos` VALUES ('1', 'HITO DE PRUEBA 1', '5000', '50', '1', '1', '1');
+INSERT INTO `p_hitos` VALUES ('2', 'HITO DE PRUEBA 2', '5000', '50', '1', '1', '1');
+INSERT INTO `p_hitos` VALUES ('3', 'HITO DE PRUEBA 3', '5000', '50', '1', '2', '1');
+INSERT INTO `p_hitos` VALUES ('4', 'HITO DE PRUEBA 4', '5000', '50', '1', '3', '1');
+INSERT INTO `p_hitos` VALUES ('5', 'NUEVO HITO', null, null, '1', '4', '2');
+INSERT INTO `p_hitos` VALUES ('6', 'HITO ENTRE CEROS Y UNOS', null, null, '2', '5', '2');
 
 -- ----------------------------
 -- Table structure for p_item_tipo_gasto
@@ -188,7 +199,8 @@ CREATE TABLE `p_proyecto` (
 -- ----------------------------
 -- Records of p_proyecto
 -- ----------------------------
-INSERT INTO `p_proyecto` VALUES ('1', 'PROYECTO 1', 'UCS - 1677', '2', '', '', '2016-08-09', '2016-08-16', '100000', '10', 'DESCRIPCION');
+INSERT INTO `p_proyecto` VALUES ('1', 'PROYECTO 1', 'UCS - 1677', '2', '166219132', 'Francisco', '2016-08-09', '2016-08-16', '100000', '10', 'DESCRIPCION');
+INSERT INTO `p_proyecto` VALUES ('2', 'PROYECTO FERNANDO', '', '2', '166219132', 'Francisco', '2016-08-16', '2016-08-18', '5000', '0', 'PRUEBA');
 
 -- ----------------------------
 -- Table structure for p_tipo_gasto
@@ -250,9 +262,8 @@ LEFT JOIN p_gasto_item B ON A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD ;
 -- View structure for v_promedio_area
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_area`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_promedio_area` AS select A.*,
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_area` AS select A.*,
 (select ROUND(AVG(B.PORCENTAJE_HITO),0) from v_promedio_hito B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_AREA=A.P_ID_AREA)AS PORCENTAJE_AREA
-
 from p_area A ;
 
 -- ----------------------------
@@ -267,6 +278,6 @@ FROM p_hitos A ;
 -- View structure for v_promedio_proyecto
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_proyecto`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_promedio_proyecto` AS select A.*,
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_proyecto` AS select A.*,
 (select ROUND(AVG(B.PORCENTAJE_AREA),0) from v_promedio_area B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO)AS PORCENTAJE_PROYECTO
 from p_proyecto A ;
