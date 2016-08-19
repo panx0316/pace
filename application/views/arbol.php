@@ -49,3 +49,6 @@
     <li><a href="#" id="addActividad"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad</a></li>
   </ul>
 </div>
+
+<a href="<?php echo base_url().'lista' ?>" id="goToFinanzas"  class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Ir a Vista de Lista</a>
+<a href="<?php echo base_url().'financiero' ?>" id="goToFinanzas"  class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Ir a Finanzas</a>

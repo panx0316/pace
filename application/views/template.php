@@ -1,7 +1,8 @@
 <html>
 <head>
-<?php $ruta='http://10.185.0.25:8080/pace/';
-//$ruta='http://localhost/pace/' 
+<?php 
+//$ruta='http://10.185.0.25:8080/pace/';
+$ruta='http://localhost/pace/';
 
 define('RUTA', $ruta);
 
@@ -20,7 +21,7 @@ define('RUTA', $ruta);
 
 </head>
 <body>
-<!--   
+ 
    <div id="header">
 
     <div class="container">
@@ -29,7 +30,7 @@ define('RUTA', $ruta);
     <div class="logo_pace"><img src="<?php //echo RUTA ?>assets/img/logo_pace.jpg"></div>
     </div>
 	</div>
--->
+
 	<div id="contents"><?= $contents ?></div>
     
 	<!-- 
@@ -38,7 +39,7 @@ define('RUTA', $ruta);
 	
 	<div class="footercont">
 
-		<img src="<?php echo RUTA ?>assets/img/logo_pace.jpg">
+		<img src="<?php //echo RUTA ?>assets/img/logo_pace.jpg">
 		<h6>Programa de Acompañamiento y Acceso Efectivo</h6>
 		contacto.pace@ucsc.cl<br>
 		(56) 41 234 5337

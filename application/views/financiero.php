@@ -31,13 +31,13 @@
 <br><br>
 
 <table border=1 style="width:100%;">
-	<tr>
-        <th scope="colgroup" colspan="12" class="clase_gastos">Gastos Adquiribles</th>
+	<tr data-toggle="collapse" data-target=".demoA" class="accordion-toggle">
+	<th scope="colgroup" colspan="12" class="clase_gastos">Gastos Adquiribles</th>
     </tr>
      <?php foreach ($item_tipo_gastos as $data_adquiribles){ 
 	 $i++;
 	 ?>
-	  <tr data-toggle="collapse" data-target=".demo<?php echo $i; ?>" class="accordion-toggle">
+	  <tr data-toggle="collapse" data-target=".demo<?php echo $i; ?>" class="accordion-toggle demoA" aria-expanded="false">
         <th scope="colgroup" colspan="12" class="tipo_gasto" ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span><?php echo " ".$data_adquiribles->P_NOMBRE_ITEM_TIPO_GASTO; ?></th>
     </tr>
         <tr  class="hiddenRow accordian-body collapse demo<?php echo $i; ?>" >
@@ -55,7 +55,7 @@
     <?php foreach ($gastos as $data_gastos){ ?>
 	
 	
-    <?php if($data_gastos->P_ID_ITEM_TIPO_GASTO == $data_adquiribles->P_ID_ITEM_TIPO_GASTO){ ?>
+    <?php if($data_gastos->P_ID_ITEM_TIPO_GASTO == $data_adquiribles->P_ID_ITEM_TIPO_GASTO && $data_gastos->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
 	
 	
 	

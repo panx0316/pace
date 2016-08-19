@@ -1,5 +1,6 @@
 <div class="container" style="width:40%; margin:0 auto;">
   <h3>Módulo de Seguimiento</h3>
+ <h4 style="margin-left: 14%;">Vista de Lista</h4>
  </div>
  <br>
  <br>
@@ -27,5 +28,10 @@
 <?php } ?>
 </tr>
 </table>
+ <br>
+ <br>
  <?php } ?>
 </div>
+
+<a href="<?php echo base_url() ?>" id="goToFinanzas"  class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Ir a Vista de Árbol</a>
+<a href="<?php echo base_url().'financiero' ?>" id="goToFinanzas"  class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Ir a Finanzas</a>
