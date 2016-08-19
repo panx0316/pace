@@ -18,7 +18,7 @@
 
 <table border=1 style="width:100%">
 <tr>
-<td>Abreviacion</td><td>Estrategia</td><td>Avance</td><td>Atraso</td>
+<td><b>Abreviacion</b></td><td><b>Estrategia</b></td><td><b>Avance</b></td><td><b>Atraso</b></td>
 <?php foreach ($areas as $data_areas){ ?>
 <?php if($data_areas->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
 <tr>
