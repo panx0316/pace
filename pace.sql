@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local
+Source Server         : Nueva
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : pace
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-18 23:59:48
+Date: 2016-08-22 08:29:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,7 @@ CREATE TABLE `p_actividad` (
   `P_DESCRIPCION` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `P_ID_HITO` int(11) NOT NULL,
   `P_ID_AREA` int(11) NOT NULL,
+  `P_SEM_EJECUTADAS` int(11) NOT NULL,
   PRIMARY KEY (`P_ID_ACTIVIDAD`),
   KEY `P_ID_HITO` (`P_ID_HITO`),
   KEY `P_ID_AREA` (`P_ID_AREA`),
@@ -44,18 +45,15 @@ CREATE TABLE `p_actividad` (
 -- ----------------------------
 -- Records of p_actividad
 -- ----------------------------
-INSERT INTO `p_actividad` VALUES ('0', '1', 'NUEVA ACTIVIDAD', '166219132', '2016-08-18', '2016-08-19', '0', '0', '0', 'PRUEBA', '5', '4');
-INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '70', '1', 'prueba', '1', '1');
-INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '100', '1', 'prueba', '1', '1');
-INSERT INTO `p_actividad` VALUES ('3', '1', 'tercera actividad', '166219132', '2016-08-09', '2016-08-16', '10000', '100', '1', 'prueba', '1', '1');
-INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '166219132', '2016-08-09', '2016-08-16', '10000', '50', '1', 'prueba', '2', '2');
-INSERT INTO `p_actividad` VALUES ('5', '1', 'segunda actividad dos', '166219132', '2016-08-09', '2016-08-16', '10000', '50', '1', 'prueba', '2', '2');
-INSERT INTO `p_actividad` VALUES ('6', '1', 'primera actividad tres', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '3', '3');
-INSERT INTO `p_actividad` VALUES ('7', '1', 'segunda actividad tres', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '3', '3');
-INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '4', '3');
-INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '166219132', '2016-08-09', '2016-08-16', '10000', '10', '1', 'prueba', '4', '3');
-INSERT INTO `p_actividad` VALUES ('10', '2', 'NUEVA ACTIVIDAD', '166219132', '2016-08-17', '2016-08-20', '0', '70', '0', 'PRUEBA DE ACTIVIDAD', '6', '5');
-INSERT INTO `p_actividad` VALUES ('11', '2', 'TEST', '166219132', '2016-08-18', '2016-08-24', '0', '0', '0', 'TEST ', '6', '5');
+INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '70', '1', 'prueba', '1', '1', '14');
+INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '14');
+INSERT INTO `p_actividad` VALUES ('3', '1', 'tercera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '14');
+INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '166219132', '2016-08-09', '2016-11-16', '10000', '50', '1', 'prueba', '2', '2', '1');
+INSERT INTO `p_actividad` VALUES ('5', '1', 'segunda actividad dos', '166219132', '2016-08-09', '2016-11-16', '10000', '50', '1', 'prueba', '2', '2', '1');
+INSERT INTO `p_actividad` VALUES ('6', '1', 'primera actividad tres', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '3', '3', '1');
+INSERT INTO `p_actividad` VALUES ('7', '1', 'segunda actividad tres', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '3', '3', '1');
+INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
+INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
 
 -- ----------------------------
 -- Table structure for p_area
@@ -240,6 +238,15 @@ INSERT INTO `p_usuario` VALUES ('2', '166219132', 'Francisco', '654321', 'fcorde
 INSERT INTO `p_usuario` VALUES ('3', '13508155', 'Fernando', '999999', 'farcos@ucsc.cl');
 
 -- ----------------------------
+-- View structure for v_avance_actividades
+-- ----------------------------
+DROP VIEW IF EXISTS `v_avance_actividades`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_avance_actividades` AS SELECT *,
+(DATEDIFF(P_FECHA_TERMINO,P_FECHA_INICIO) DIV 7)AS P_TOTAL_SEMANAS,
+((P_SEM_EJECUTADAS*100) DIV (DATEDIFF(P_FECHA_TERMINO,P_FECHA_INICIO) DIV 7))AS P_PORC_INDIVIDUAL
+FROM p_actividad ;
+
+-- ----------------------------
 -- View structure for v_detalle_gastos
 -- ----------------------------
 DROP VIEW IF EXISTS `v_detalle_gastos`;
@@ -271,7 +278,7 @@ from p_area A ;
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_hito`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_hito` AS SELECT *,
-(SELECT ROUND(AVG(B.P_PORC_AVANCE),0) FROM p_actividad B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_HITO=A.P_ID_HITO)AS PORCENTAJE_HITO
+(SELECT(SUM(B.P_PORC_INDIVIDUAL*B.P_TOTAL_SEMANAS)) DIV SUM(B.P_TOTAL_SEMANAS) FROM v_avance_actividades B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_HITO=A.P_ID_HITO)AS PORCENTAJE_HITO
 FROM p_hitos A ;
 
 -- ----------------------------
