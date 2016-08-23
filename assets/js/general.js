@@ -29,3 +29,19 @@ $(document).ready(function() {
 	
 	
 });
+
+
+
+
+
+$(".form-signin").validate({
+		ignore: [],
+		rules: {
+			email: {required: true},
+			password: {required: true}
+		},
+		messages: {
+			email: {required:"Ingrese email"},
+			password: {required:"Ingrese password "}
+		}
+	});
