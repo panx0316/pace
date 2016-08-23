@@ -42,16 +42,16 @@ if(!function_exists('FormatearFechaES'))
 	}
 }
 
-if(!function_exists('GetAvanceHito'))
+if(!function_exists('GetAvanceComponente'))
 {
-	function GetAvanceHito($id_proyecto,$id_area,$id_hito)
+	function GetAvanceComponente($id_proyecto,$id_estrategia,$id_componente)
 	{
 		$CI= & get_instance(); 
 		$CI->load->model('pace_model');
-		if(isset($id_proyecto) && isset($id_area) && isset($id_hito))
+		if(isset($id_proyecto) && isset($id_estrategia) && isset($id_componente))
 		{
 			
-			$avance = $CI->pace_model->getAvanceHitos($id_proyecto,$id_area,$id_hito);
+			$avance = $CI->pace_model->getAvanceComponentes($id_proyecto,$id_estrategia,$id_componente);
 
 			
 			return $avance;
@@ -62,16 +62,16 @@ if(!function_exists('GetAvanceHito'))
 		}
 	}
 }
-if(!function_exists('GetAvanceArea'))
+if(!function_exists('GetAvanceEstrategia'))
 {
-	function GetAvanceArea($id_proyecto,$id_area)
+	function GetAvanceEstrategia($id_proyecto,$id_estrategia)
 	{
 		$CI= & get_instance(); 
 		$CI->load->model('pace_model');
-		if(isset($id_proyecto) && isset($id_area))
+		if(isset($id_proyecto) && isset($id_estrategia))
 		{
 			
-			$avance = $CI->pace_model->getAvanceArea($id_proyecto,$id_area);
+			$avance = $CI->pace_model->getAvanceEstrategia($id_proyecto,$id_estrategia);
 
 			
 			return $avance;

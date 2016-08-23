@@ -30,15 +30,15 @@ CREATE TABLE `p_actividad` (
   `P_PORC_AVANCE` int(11) NOT NULL,
   `P_NIVEL_ACTIVIDAD` int(11) NOT NULL,
   `P_DESCRIPCION` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `P_ID_HITO` int(11) NOT NULL,
-  `P_ID_AREA` int(11) NOT NULL,
+  `P_ID_COMPONENTE` int(11) NOT NULL,
+  `P_ID_ESTRATEGIA` int(11) NOT NULL,
   `P_SEM_EJECUTADAS` int(11) NOT NULL,
   PRIMARY KEY (`P_ID_ACTIVIDAD`),
-  KEY `P_ID_HITO` (`P_ID_HITO`),
-  KEY `P_ID_AREA` (`P_ID_AREA`),
+  KEY `P_ID_COMPONENTE` (`P_ID_COMPONENTE`),
+  KEY `P_ID_ESTRATEGIA` (`P_ID_ESTRATEGIA`),
   KEY `P_RESPONSABLE_ACTIVIDAD` (`P_RESPONSABLE_ACTIVIDAD`),
-  CONSTRAINT `FK_ACTIVIDAD_AREA` FOREIGN KEY (`P_ID_AREA`) REFERENCES `p_area` (`P_ID_AREA`),
-  CONSTRAINT `FK_ACTIVIDAD_HITO` FOREIGN KEY (`P_ID_HITO`) REFERENCES `p_hitos` (`P_ID_HITO`),
+  CONSTRAINT `FK_ACTIVIDAD_ESTRATEGIA` FOREIGN KEY (`P_ID_ESTRATEGIA`) REFERENCES `p_estrategia` (`P_ID_ESTRATEGIA`),
+  CONSTRAINT `FK_ACTIVIDAD_COMPONENTE` FOREIGN KEY (`P_ID_COMPONENTE`) REFERENCES `p_componente` (`P_ID_COMPONENTE`),
   CONSTRAINT `FK_RUT_RESPONSABLE` FOREIGN KEY (`P_RESPONSABLE_ACTIVIDAD`) REFERENCES `p_usuario` (`P_RUT_RESPONSABLE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -56,30 +56,30 @@ INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '1662191
 INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
 
 -- ----------------------------
--- Table structure for p_area
+-- Table structure for p_estrategia
 -- ----------------------------
-DROP TABLE IF EXISTS `p_area`;
-CREATE TABLE `p_area` (
-  `P_ID_AREA` int(11) NOT NULL,
-  `P_NOMBRE_AREA` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
-  `P_ABREVIACION_AREA` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+DROP TABLE IF EXISTS `p_estrategia`;
+CREATE TABLE `p_estrategia` (
+  `P_ID_ESTRATEGIA` int(11) NOT NULL,
+  `P_NOMBRE_ESTRATEGIA` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+  `P_ABREVIACION_ESTRATEGIA` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `P_ID_PROYECTO` int(11) DEFAULT NULL,
   `P_ID_RESPONSABLE` int(11) NOT NULL,
-  PRIMARY KEY (`P_ID_AREA`),
+  PRIMARY KEY (`P_ID_ESTRATEGIA`),
   KEY `P_ID_PROYECTO` (`P_ID_PROYECTO`),
   KEY `P_ID_RESPONSABLE` (`P_ID_RESPONSABLE`),
-  CONSTRAINT `FK_AREA_PROYECTO` FOREIGN KEY (`P_ID_PROYECTO`) REFERENCES `p_proyecto` (`P_ID_PROYECTO`),
+  CONSTRAINT `FK_ESTRATEGIA_PROYECTO` FOREIGN KEY (`P_ID_PROYECTO`) REFERENCES `p_proyecto` (`P_ID_PROYECTO`),
   CONSTRAINT `FK_ID_USUARIO` FOREIGN KEY (`P_ID_RESPONSABLE`) REFERENCES `p_usuario` (`P_ID_USUARIO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- ----------------------------
--- Records of p_area
+-- Records of p_estrategia
 -- ----------------------------
-INSERT INTO `p_area` VALUES ('1', 'AREA 1', 'PAAD', '1', '1');
-INSERT INTO `p_area` VALUES ('2', 'AREA 2', 'PPV', '1', '1');
-INSERT INTO `p_area` VALUES ('3', 'AREA 3', 'VEC', '1', '1');
-INSERT INTO `p_area` VALUES ('4', 'AREA 5', 'NEWARE', '1', '2');
-INSERT INTO `p_area` VALUES ('5', 'AREA 1 FERNANDO', 'NEWFER', '2', '2');
+INSERT INTO `p_estrategia` VALUES ('1', 'ESTRATEGIA 1', 'PAAD', '1', '1');
+INSERT INTO `p_estrategia` VALUES ('2', 'ESTRATEGIA 2', 'PPV', '1', '1');
+INSERT INTO `p_estrategia` VALUES ('3', 'ESTRATEGIA 3', 'VEC', '1', '1');
+INSERT INTO `p_estrategia` VALUES ('4', 'ESTRATEGIA 5', 'NEWARE', '1', '2');
+INSERT INTO `p_estrategia` VALUES ('5', 'ESTRATEGIA 1 FERNANDO', 'NEWFER', '2', '2');
 
 -- ----------------------------
 -- Table structure for p_clasificacion_item
@@ -125,33 +125,33 @@ INSERT INTO `p_gasto_item` VALUES ('1', '1', '100000', '80000', '1', 'Equipos Co
 INSERT INTO `p_gasto_item` VALUES ('2', '1', '100000', '70000', '1', 'Pantallas FullHD LG', '1', '3');
 
 -- ----------------------------
--- Table structure for p_hitos
+-- Table structure for p_componente
 -- ----------------------------
-DROP TABLE IF EXISTS `p_hitos`;
-CREATE TABLE `p_hitos` (
-  `P_ID_HITO` int(11) NOT NULL,
-  `P_NOMBRE_HITO` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
+DROP TABLE IF EXISTS `p_componente`;
+CREATE TABLE `p_componente` (
+  `P_ID_COMPONENTE` int(11) NOT NULL,
+  `P_NOMBRE_COMPONENTE` varchar(150) COLLATE utf8_spanish2_ci NOT NULL,
   `P_VALOR_ASIGNADO` int(11) DEFAULT NULL,
   `P_TIEMPO_ASIGNADO` int(11) DEFAULT NULL,
   `P_ID_PROYECTO` int(11) NOT NULL,
-  `P_ID_AREA` int(11) NOT NULL,
+  `P_ID_ESTRATEGIA` int(11) NOT NULL,
   `P_ID_RESPONSABLE` int(11) NOT NULL,
-  PRIMARY KEY (`P_ID_HITO`),
+  PRIMARY KEY (`P_ID_COMPONENTE`),
   KEY `P_ID_PROYECTO` (`P_ID_PROYECTO`) USING BTREE,
-  KEY `P_ID_AREA` (`P_ID_AREA`),
-  CONSTRAINT `FK_HITOS_AREA` FOREIGN KEY (`P_ID_AREA`) REFERENCES `p_area` (`P_ID_AREA`),
-  CONSTRAINT `FK_HITOS_PROYECTO` FOREIGN KEY (`P_ID_PROYECTO`) REFERENCES `p_proyecto` (`P_ID_PROYECTO`)
+  KEY `P_ID_ESTRATEGIA` (`P_ID_ESTRATEGIA`),
+  CONSTRAINT `FK_COMPONENTES_ESTRATEGIA` FOREIGN KEY (`P_ID_ESTRATEGIA`) REFERENCES `p_estrategia` (`P_ID_ESTRATEGIA`),
+  CONSTRAINT `FK_COMPONENTES_PROYECTO` FOREIGN KEY (`P_ID_PROYECTO`) REFERENCES `p_proyecto` (`P_ID_PROYECTO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- ----------------------------
--- Records of p_hitos
+-- Records of p_componente
 -- ----------------------------
-INSERT INTO `p_hitos` VALUES ('1', 'HITO DE PRUEBA 1', '5000', '50', '1', '1', '1');
-INSERT INTO `p_hitos` VALUES ('2', 'HITO DE PRUEBA 2', '5000', '50', '1', '1', '1');
-INSERT INTO `p_hitos` VALUES ('3', 'HITO DE PRUEBA 3', '5000', '50', '1', '2', '1');
-INSERT INTO `p_hitos` VALUES ('4', 'HITO DE PRUEBA 4', '5000', '50', '1', '3', '1');
-INSERT INTO `p_hitos` VALUES ('5', 'NUEVO HITO', null, null, '1', '4', '2');
-INSERT INTO `p_hitos` VALUES ('6', 'HITO ENTRE CEROS Y UNOS', null, null, '2', '5', '2');
+INSERT INTO `p_componente` VALUES ('1', 'COMPONENTE DE PRUEBA 1', '5000', '50', '1', '1', '1');
+INSERT INTO `p_componente` VALUES ('2', 'COMPONENTE DE PRUEBA 2', '5000', '50', '1', '1', '1');
+INSERT INTO `p_componente` VALUES ('3', 'COMPONENTE DE PRUEBA 3', '5000', '50', '1', '2', '1');
+INSERT INTO `p_componente` VALUES ('4', 'COMPONENTE DE PRUEBA 4', '5000', '50', '1', '3', '1');
+INSERT INTO `p_componente` VALUES ('5', 'NUEVO COMPONENTE', null, null, '1', '4', '2');
+INSERT INTO `p_componente` VALUES ('6', 'COMPONENTE ENTRE CEROS Y UNOS', null, null, '2', '5', '2');
 
 -- ----------------------------
 -- Table structure for p_item_tipo_gasto
@@ -256,7 +256,7 @@ B.P_COSTO_PLANIF,
 B.P_COSTO,
 (select C.P_CLASIFICACION_ITEM  from p_clasificacion_item C WHERE A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD)AS P_CLASIFICACION_ITEM,
 (select C.P_NOMBRE_CLASIFICACION_ITEM from p_clasificacion_item C WHERE A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD)AS P_NOMBRE_CLASIFICACION_ITEM,
-(select D.P_ABREVIACION_AREA from p_area D WHERE A.P_ID_PROYECTO=D.P_ID_PROYECTO AND A.P_ID_AREA=D.P_ID_AREA)AS P_ABREVIACION_AREA,
+(select D.P_ABREVIACION_ESTRATEGIA from p_estrategia D WHERE A.P_ID_PROYECTO=D.P_ID_PROYECTO AND A.P_ID_ESTRATEGIA=D.P_ID_ESTRATEGIA)AS P_ABREVIACION_ESTRATEGIA,
 B.P_DETALLE_ITEM,
 B.P_ID_TIPO_GASTO,
 (SELECT P_NOMBRE_TIPO_GASTO FROM p_tipo_gasto WHERE P_ID_TIPO_GASTO=B.P_ID_TIPO_GASTO)AS P_NOMBRE_TIPO_GASTO,
@@ -266,25 +266,25 @@ FROM p_actividad A
 LEFT JOIN p_gasto_item B ON A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD ;
 
 -- ----------------------------
--- View structure for v_promedio_area
+-- View structure for v_promedio_estreategia
 -- ----------------------------
-DROP VIEW IF EXISTS `v_promedio_area`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_area` AS select A.*,
-(select ROUND(AVG(B.PORCENTAJE_HITO),0) from v_promedio_hito B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_AREA=A.P_ID_AREA)AS PORCENTAJE_AREA
-from p_area A ;
+DROP VIEW IF EXISTS `v_promedio_estreategia`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_estreategia` AS select A.*,
+(select ROUND(AVG(B.PORCENTAJE_COMPONENTE),0) from v_promedio_componente B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_ESTRATEGIA=A.P_ID_ESTRATEGIA)AS PORCENTAJE_ESTRATEGIA
+from p_estrategia A ;
 
 -- ----------------------------
--- View structure for v_promedio_hito
+-- View structure for v_promedio_componente
 -- ----------------------------
-DROP VIEW IF EXISTS `v_promedio_hito`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_hito` AS SELECT *,
-(SELECT(SUM(B.P_PORC_INDIVIDUAL*B.P_TOTAL_SEMANAS)) DIV SUM(B.P_TOTAL_SEMANAS) FROM v_avance_actividades B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_HITO=A.P_ID_HITO)AS PORCENTAJE_HITO
-FROM p_hitos A ;
+DROP VIEW IF EXISTS `v_promedio_componente`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_componente` AS SELECT *,
+(SELECT(SUM(B.P_PORC_INDIVIDUAL*B.P_TOTAL_SEMANAS)) DIV SUM(B.P_TOTAL_SEMANAS) FROM v_avance_actividades B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_COMPONENTE=A.P_ID_COMPONENTE)AS PORCENTAJE_COMPONENTE
+FROM p_componente A ;
 
 -- ----------------------------
 -- View structure for v_promedio_proyecto
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_proyecto`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_proyecto` AS select A.*,
-(select ROUND(AVG(B.PORCENTAJE_AREA),0) from v_promedio_area B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO)AS PORCENTAJE_PROYECTO
+(select ROUND(AVG(B.PORCENTAJE_ESTRATEGIA),0) from v_promedio_estreategia B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO)AS PORCENTAJE_PROYECTO
 from p_proyecto A ;

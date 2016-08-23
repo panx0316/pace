@@ -6,19 +6,19 @@
       <li class="tituloProyecto">
         <a href="#" ><b><?php echo $data_proyectos->P_NOMBRE_PROYECTO."</b> - <b>Avance:</b>".GetAvanceProyecto($data_proyectos->P_ID_PROYECTO)."% - <b>Fecha Inicio</b>:".FormatearFechaES($data_proyectos->P_FECHA_INICIO)." - <b>Fecha Término</b>:".FormatearFechaES($data_proyectos->P_FECHA_TERMINO);  ?></a>
         <ul>
-          <?php foreach ($areas as $data_areas){ ?>
-          <?php if($data_areas->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
+          <?php foreach ($estrategias as $data_estrategia){ ?>
+          <?php if($data_estrategia->P_ID_PROYECTO == $data_proyectos->P_ID_PROYECTO){ ?>
 		  <li>
-            <a href="#"><?php echo "<b>".$data_areas->P_NOMBRE_AREA."</b> - Avance:".GetAvanceArea($data_areas->P_ID_PROYECTO,$data_areas->P_ID_AREA)."%"; ?></a>
+            <a href="#"><?php echo "<b>".$data_estrategia->P_NOMBRE_ESTRATEGIA."</b> - Avance:".GetAvanceEstrategia($data_estrategia->P_ID_PROYECTO,$data_estrategia->P_ID_ESTRATEGIA)."%"; ?></a>
             <ul>
               
-			  <?php foreach ($hitos as $data_hitos){ ?>
-				<?php if($data_hitos->P_ID_AREA == $data_areas->P_ID_AREA){ ?>
+			  <?php foreach ($componentes as $data_componentes){ ?>
+				<?php if($data_componentes->P_ID_ESTRATEGIA == $data_estrategia->P_ID_ESTRATEGIA){ ?>
               <li>
-                <a href="#"><?php echo "<b>".$data_hitos->P_NOMBRE_HITO."</b> - Avance:".GetAvanceHito($data_hitos->P_ID_PROYECTO,$data_hitos->P_ID_AREA,$data_hitos->P_ID_HITO)."%";  ?></a>
+                <a href="#"><?php echo "<b>".$data_componentes->P_NOMBRE_COMPONENTE."</b> - Avance:".GetAvanceComponente($data_componentes->P_ID_PROYECTO,$data_componentes->P_ID_ESTRATEGIA,$data_componentes->P_ID_COMPONENTE)."%";  ?></a>
                 <ul>
 				<?php foreach ($actividades as $data_actividades){ 
-					if($data_hitos->P_ID_HITO == $data_actividades->P_ID_HITO){ ?>
+					if($data_componentes->P_ID_COMPONENTE == $data_actividades->P_ID_COMPONENTE){ ?>
                   <li><a href="#"><?php echo "<b>".$data_actividades->P_NOMBRE_ACTIVIDAD."</b> - Fecha Inicio:". FormatearFechaES($data_actividades->P_FECHA_INICIO)." / Fecha Término:". FormatearFechaES($data_actividades->P_FECHA_TERMINO)." / Avance:". $data_actividades->P_PORC_AVANCE."%" ?></a><button type="button" class="btn btn-link editar_actividad" data-id="<?php echo $data_actividades->P_ID_ACTIVIDAD; ?>">Editar</button></li>
 				  <?php } }  ?>
                 </ul>

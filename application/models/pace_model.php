@@ -30,15 +30,15 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getHitos($proyecto=FALSE,$area=FALSE)
+	public function getComponentes($proyecto=FALSE,$estrategia=FALSE)
 	{
 	
-	echo $area;
-	if($proyecto!=FALSE && $area!=FALSE ){
-	$sql="select * from p_hitos where P_ID_AREA='{$area}' AND P_ID_PROYECTO='{$proyecto}' ";	
+	echo $estrategia;
+	if($proyecto!=FALSE && $estrategia!=FALSE ){
+	$sql="select * from p_componente where P_ID_ESTRATEGIA='{$estrategia}' AND P_ID_PROYECTO='{$proyecto}' ";	
 	}
 	else{
-	$sql="select * from p_hitos";
+	$sql="select * from p_componente";
 	}	
 
 	
@@ -47,22 +47,22 @@ class Pace_model extends CI_Model{
 	return $query->result();
 	
 	}
-	public function getAvanceHitos($id_proyecto,$id_area,$id_hito)
+	public function getAvanceComponentes($id_proyecto,$id_estrategia,$id_componente)
 	{	
-	$sql="select PORCENTAJE_HITO from V_PROMEDIO_HITO WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_AREA='{$id_area}' AND P_ID_HITO='{$id_hito}'";
+	$sql="select PORCENTAJE_COMPONENTE from V_PROMEDIO_COMPONENTE WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' AND P_ID_COMPONENTE='{$id_componente}'";
 	$query = $this->db->query($sql);
-	$porcentaje=($query->row()->PORCENTAJE_HITO);
+	$porcentaje=($query->row()->PORCENTAJE_COMPONENTE);
 	if($porcentaje==null){
 		$porcentaje=0;
 	}
 	return $porcentaje;
 	}
 	
-	public function getAvanceArea($id_proyecto,$id_area)
+	public function getAvanceEstrategia($id_proyecto,$id_estrategia)
 	{	
-	$sql="select PORCENTAJE_AREA from V_PROMEDIO_AREA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_AREA='{$id_area}' ";
+	$sql="select PORCENTAJE_ESTRATEGIA from V_PROMEDIO_ESTRATEGIA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' ";
 	$query = $this->db->query($sql);
-	$porcentaje=($query->row()->PORCENTAJE_AREA);
+	$porcentaje=($query->row()->PORCENTAJE_ESTRATEGIA);
 	if($porcentaje==null){
 		$porcentaje=0;
 	}
@@ -95,15 +95,15 @@ class Pace_model extends CI_Model{
 	
 	}
 	
-	public function getAreas($proyecto=FALSE)
+	public function getEstrategias($proyecto=FALSE)
 	{
 	
 
 	if($proyecto!=FALSE){
-	$sql="select * from p_area where P_ID_PROYECTO='{$proyecto}' ";	
+	$sql="select * from p_estrategia where P_ID_PROYECTO='{$proyecto}' ";	
 	}
 	else{
-	$sql="select * from p_area";	
+	$sql="select * from p_estrategia";	
 	}
 	
 	
@@ -240,7 +240,7 @@ class Pace_model extends CI_Model{
 		}
 	}
 	
-	public function setCreateArea($data){
+	public function setCreateEstrategia($data){
 		if($data != FALSE)
 		{
 			$this->db->trans_start();
@@ -258,7 +258,7 @@ class Pace_model extends CI_Model{
 				}
 			
 
-			$query = $this->db->query("select max(P_ID_AREA) as MAX_ID from p_area");
+			$query = $this->db->query("select max(P_ID_ESTRATEGIA) as MAX_ID from p_estrategia");
 		
 				if($query->row()->MAX_ID != NULL)
 				{
@@ -269,14 +269,14 @@ class Pace_model extends CI_Model{
 					$id = 1;
 				}
 
-			$this->db->set('P_ID_AREA', $id);
-			$this->db->set('P_NOMBRE_AREA', $data['NOMBRE_AREA']);
-			$this->db->set('P_ABREVIACION_AREA', $data['ABREV_AREA']);
+			$this->db->set('P_ID_ESTRATEGIA', $id);
+			$this->db->set('P_NOMBRE_ESTRATEGIA', $data['NOMBRE_ESTRATEGIA']);
+			$this->db->set('P_ABREVIACION_ESTRATEGIA', $data['ABREV_ESTRATEGIA']);
 			$this->db->set('P_ID_PROYECTO', $data['ID_PROYECTO']);
 			$this->db->set('P_ID_RESPONSABLE', $id_responsable);
 		
 			
-			$this->db->insert('p_area');
+			$this->db->insert('p_estrategia');
 			
 			
 			$this->db->trans_complete();
@@ -293,7 +293,7 @@ class Pace_model extends CI_Model{
 		}
 	}
 	
-	public function setCreateHito($data){
+	public function setCreateComponente($data){
 		if($data != FALSE)
 		{
 			$this->db->trans_start();
@@ -311,7 +311,7 @@ class Pace_model extends CI_Model{
 				}
 			
 
-			$query = $this->db->query("select max(P_ID_HITO) as MAX_ID from p_hitos");
+			$query = $this->db->query("select max(P_ID_COMPONENTE) as MAX_ID from p_componente");
 		
 				if($query->row()->MAX_ID != NULL)
 				{
@@ -322,14 +322,14 @@ class Pace_model extends CI_Model{
 					$id = 1;
 				}
 
-			$this->db->set('P_ID_HITO', $id);
-			$this->db->set('P_ID_AREA', $data['ID_AREA']);
-			$this->db->set('P_NOMBRE_HITO', $data['NOMBRE_HITO']);
+			$this->db->set('P_ID_COMPONENTE', $id);
+			$this->db->set('P_ID_ESTRATEGIA', $data['ID_ESTRATEGIA']);
+			$this->db->set('P_NOMBRE_COMPONENTE', $data['NOMBRE_COMPONENTE']);
 			$this->db->set('P_ID_PROYECTO', $data['ID_PROYECTO']);
 			$this->db->set('P_ID_RESPONSABLE', $id_responsable);
 		
 			
-			$this->db->insert('p_hitos');
+			$this->db->insert('p_componente');
 			
 			
 			$this->db->trans_complete();
@@ -382,8 +382,8 @@ class Pace_model extends CI_Model{
 				
 				
 			$this->db->set('P_ID_PROYECTO', $data['ID_PROYECTO']);
-			$this->db->set('P_ID_AREA', $data['ID_AREA']);
-			$this->db->set('P_ID_HITO', $data['ID_HITO']);
+			$this->db->set('P_ID_ESTRATEGIA', $data['ID_ESTRATEGIA']);
+			$this->db->set('P_ID_COMPONENTE', $data['ID_COMPONENTE']);
 			$this->db->set('P_ID_ACTIVIDAD', $id);
 			$this->db->set('P_NOMBRE_ACTIVIDAD', $data['NOMBRE_ACTIVIDAD']);
 			$this->db->set('P_RESPONSABLE_ACTIVIDAD', $data['RUT_RESPONSABLE']);

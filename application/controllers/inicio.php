@@ -21,9 +21,9 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		$data['proyectos'] = $this->pace_model->getProyectos();
-		$data['hitos'] = $this->pace_model->getHitos();
+		$data['componentes'] = $this->pace_model->getComponentes();
 		$data['actividades'] = $this->pace_model->getActividades();
-		$data['areas'] = $this->pace_model->getAreas();
+		$data['estrategias'] = $this->pace_model->getEstrategias();
 		
 		$this->template->load('template', 'arbol', $data);
 		//$this->template->load('plantilla', 'controlador', dato);
@@ -38,13 +38,13 @@ class Inicio extends CI_Controller {
 	}
 	public function nuevoHito(){
 		$data['proyectos'] = $this->pace_model->getProyectos();
-		$data['areas'] = $this->pace_model->getAreas();
+		$data['estrategias'] = $this->pace_model->getEstrategias();
 		$this->load->view('modal/nuevo_hito', $data);
 	}
 	public function nuevaActividad(){
 		$data['proyectos'] = $this->pace_model->getProyectos();
-		$data['areas'] = $this->pace_model->getAreas();
-		$data['hitos'] = $this->pace_model->getHitos();
+		$data['estrategias'] = $this->pace_model->getEstrategias();
+		$data['componentes'] = $this->pace_model->getComponentes();
 		$this->load->view('modal/nueva_actividad', $data);
 	}
 	
@@ -148,8 +148,8 @@ class Inicio extends CI_Controller {
 			
 		$data=array(
 			"ID_PROYECTO"=>$proyecto,
-			"NOMBRE_AREA"=>$titulo,
-			"ABREV_AREA"=>$abreviacion,
+			"NOMBRE_ESTRATEGIA"=>$titulo,
+			"ABREV_ESTRATEGIA"=>$abreviacion,
 			"RUT_RESPONSABLE"=>$rut_responsable
 		);
 		
@@ -170,32 +170,32 @@ class Inicio extends CI_Controller {
 	}
 	
 	
-	public function getAreas(){
+	public function getEstrategias(){
 		$opcion = $this->input->post("opcion");
-		$areas= $this->pace_model->getAreas($opcion);
+		$estrategias= $this->pace_model->getEstrategias($opcion);
 		
-			if($areas != FALSE)
+			if($estrategias != FALSE)
 			{
 				$data = '<option value="">-- Seleccione Área --</option>';
-				foreach($areas as $data_areas)
+				foreach($estrategias as $data_estrategias)
 				{
-						$data .= '<option value="'.$data_areas->P_ID_AREA.'">'.$data_areas->P_NOMBRE_AREA.' ('.$data_areas->P_ABREVIACION_AREA.') </option>';
+						$data .= '<option value="'.$data_estrategias->P_ID_ESTRATEGIA.'">'.$data_estrategias->P_NOMBRE_ESTRATEGIA.' ('.$data_estrategias->P_ABREVIACION_ESTRATEGIA.') </option>';
 				}
 				echo $data;
 			}
 	}	
 	
-	public function getHitos(){
+	public function getComponentes(){
 		$proyecto = $this->input->post("proyecto");
-		$areas_proyecto = $this->input->post("area");
-		$hitos= $this->pace_model->getHitos($proyecto, $areas_proyecto);
+		$estrategias_proyecto = $this->input->post("area");
+		$componentes= $this->pace_model->getComponentes($proyecto, $estrategias_proyecto);
 		
-			if($hitos != FALSE)
+			if($componentes != FALSE)
 			{
 				$data = '<option value="">-- Seleccione Hito --</option>';
-				foreach($hitos as $data_hitos)
+				foreach($componentes as $data_componentes)
 				{
-						$data .= '<option value="'.$data_hitos->P_ID_HITO.'">'.$data_hitos->P_NOMBRE_HITO.'</option>';
+						$data .= '<option value="'.$data_componentes->P_ID_COMPONENTE.'">'.$data_componentes->P_NOMBRE_COMPONENTE.'</option>';
 				}
 				echo $data;
 			}
@@ -214,8 +214,8 @@ class Inicio extends CI_Controller {
 			
 		$data=array(
 			"ID_PROYECTO"=>$proyecto,
-			"ID_AREA"=>$area,
-			"NOMBRE_HITO"=>$titulo,
+			"ID_ESTRATEGIA"=>$area,
+			"NOMBRE_COMPONENTE"=>$titulo,
 			"RUT_RESPONSABLE"=>$rut_responsable,
 			"DESCRIPCION"=>$descripcion
 		);
@@ -257,8 +257,8 @@ class Inicio extends CI_Controller {
 			
 		$data=array(
 			"ID_PROYECTO"=>$proyecto,
-			"ID_AREA"=>$area,
-			"ID_HITO"=>$hito,
+			"ID_ESTRATEGIA"=>$area,
+			"ID_COMPONENTE"=>$hito,
 			"NOMBRE_ACTIVIDAD"=>$titulo,
 			"RUT_RESPONSABLE"=>$rut_responsable,
 			"FECHA_INI"=>$fecha_inicio,
