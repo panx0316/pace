@@ -71,9 +71,9 @@ class Pace_model extends CI_Model{
 	}
 	public function getAvanceComponentes($id_proyecto,$id_estrategia,$id_componente)
 	{
-	$sql="select PORCENTAJE_COMPONENTE from V_PROMEDIO_COMPONENTE WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' AND P_ID_COMPONENTE='{$id_componente}'";
+	$sql="select PORCENTAJE_AVANCE_COMPONENTE from V_PROMEDIO_COMPONENTE WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' AND P_ID_COMPONENTE='{$id_componente}'";
 	$query = $this->db->query($sql);
-	$porcentaje=($query->row()->PORCENTAJE_COMPONENTE);
+	$porcentaje=($query->row()->PORCENTAJE_AVANCE_COMPONENTE);
 	if($porcentaje==null){
 		$porcentaje=0;
 	}
@@ -82,20 +82,31 @@ class Pace_model extends CI_Model{
 
 	public function getAvanceEstrategia($id_proyecto,$id_estrategia)
 	{
-	$sql="select PORCENTAJE_ESTRATEGIA from V_PROMEDIO_ESTRATEGIA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' ";
+	$sql="select PORCENTAJE_AVANCE_ESTRATEGIA from V_PROMEDIO_ESTRATEGIA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' ";
 	$query = $this->db->query($sql);
-	$porcentaje=($query->row()->PORCENTAJE_ESTRATEGIA);
+	$porcentaje=($query->row()->PORCENTAJE_AVANCE_ESTRATEGIA);
 	if($porcentaje==null){
 		$porcentaje=0;
 	}
 	return $porcentaje;
 	}
 
+	public function getAvanceEstrategiaReal($id_proyecto,$id_estrategia)
+	{
+	$sql="select PORCENTAJE_REAL_ESTRATEGIA from V_PROMEDIO_ESTRATEGIA WHERE P_ID_PROYECTO='{$id_proyecto}' AND P_ID_ESTRATEGIA='{$id_estrategia}' ";
+	$query = $this->db->query($sql);
+	$porcentaje=($query->row()->PORCENTAJE_REAL_ESTRATEGIA);
+	if($porcentaje==null){
+		$porcentaje=0;
+	}
+	return $porcentaje;
+	}
+	
 	public function getAvanceProyecto($id_proyecto)
 	{
-	$sql="select PORCENTAJE_PROYECTO from V_PROMEDIO_PROYECTO WHERE P_ID_PROYECTO='{$id_proyecto}' ";
+	$sql="select PORCENTAJE_AVANCE_PROYECTO from V_PROMEDIO_PROYECTO WHERE P_ID_PROYECTO='{$id_proyecto}' ";
 	$query = $this->db->query($sql);
-	$porcentaje=($query->row()->PORCENTAJE_PROYECTO);
+	$porcentaje=($query->row()->PORCENTAJE_AVANCE_PROYECTO);
 	if($porcentaje==null){
 		$porcentaje=0;
 	}

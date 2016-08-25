@@ -83,6 +83,27 @@ if(!function_exists('GetAvanceEstrategia'))
 	}
 }
 
+if(!function_exists('GetAvanceEstrategiaReal'))
+{
+	function GetAvanceEstrategiaReal($id_proyecto,$id_estrategia)
+	{
+		$CI= & get_instance(); 
+		$CI->load->model('pace_model');
+		if(isset($id_proyecto) && isset($id_estrategia))
+		{
+			
+			$avance = $CI->pace_model->getAvanceEstrategiaReal($id_proyecto,$id_estrategia);
+
+			
+			return $avance;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+}
+
 if(!function_exists('GetAvanceProyecto'))
 {
 	function GetAvanceProyecto($id_proyecto)

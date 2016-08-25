@@ -35,7 +35,7 @@ class Lista extends CI_Controller {
 
 		$proyecto = $this->input->post("proyecto");
 
-		$data['proyectos'] = $this->pace_model->getProyectosLista($proyecto);
+		$data['proyectos'] = $this->pace_model->getProyectos2($proyecto);
 		$data['componentes'] = $this->pace_model->getComponentes();
 		$data['actividades'] = $this->pace_model->getActividades();
 		$data['estrategias'] = $this->pace_model->getEstrategias();
