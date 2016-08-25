@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Nueva
+Source Server         : Local
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : pace
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-25 08:04:24
+Date: 2016-08-25 19:13:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,17 +45,17 @@ CREATE TABLE `p_actividad` (
 -- ----------------------------
 -- Records of p_actividad
 -- ----------------------------
-INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '1', '1', '2');
-INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '1');
+INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-08', '2016-11-16', '10000', '1', '1', 'prueba', '1', '1', '14');
+INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '12');
 INSERT INTO `p_actividad` VALUES ('3', '1', 'tercera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '2');
-INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '166219132', '2016-08-09', '2016-11-16', '10000', '50', '1', 'prueba', '2', '2', '1');
+INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '166219132', '2016-08-01', '2016-11-16', '10000', '75', '1', 'prueba', '2', '2', '1');
 INSERT INTO `p_actividad` VALUES ('5', '1', 'segunda actividad dos', '166219132', '2016-08-09', '2016-11-16', '10000', '50', '1', 'prueba', '2', '2', '1');
 INSERT INTO `p_actividad` VALUES ('6', '1', 'primera actividad tres', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '3', '3', '1');
 INSERT INTO `p_actividad` VALUES ('7', '1', 'segunda actividad tres', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '3', '3', '1');
 INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
 INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
 INSERT INTO `p_actividad` VALUES ('10', '2', 'NUEVA ACTIVIDAD', '166219132', '2016-08-16', '2016-08-31', '0', '0', '0', 'prueba', '6', '5', '1');
-INSERT INTO `p_actividad` VALUES ('11', '3', 'ACTIVIDAD 1 DE PRUEBA', '166219132', '2016-08-16', '2016-08-31', '0', '0', '0', 'DESCRIPCIÓN PRUEBA', '7', '6', '0');
+INSERT INTO `p_actividad` VALUES ('11', '3', 'ACTIVIDAD 1 DE PRUEBA', '166219132', '2016-08-16', '2016-08-31', '0', '0', '0', 'DESCRIPCIÓN PRUEBA', '7', '6', '1');
 
 -- ----------------------------
 -- Table structure for p_clasificacion_item
@@ -98,7 +98,6 @@ INSERT INTO `p_componente` VALUES ('1', 'COMPONENTE DE PRUEBA 1', '5000', '50', 
 INSERT INTO `p_componente` VALUES ('2', 'COMPONENTE DE PRUEBA 2', '5000', '50', '1', '1', '1');
 INSERT INTO `p_componente` VALUES ('3', 'COMPONENTE DE PRUEBA 3', '5000', '50', '1', '2', '1');
 INSERT INTO `p_componente` VALUES ('4', 'COMPONENTE DE PRUEBA 4', '5000', '50', '1', '3', '1');
-INSERT INTO `p_componente` VALUES ('5', 'NUEVO COMPONENTE', null, null, '1', '4', '2');
 INSERT INTO `p_componente` VALUES ('6', 'componente secreto', null, null, '2', '5', '2');
 INSERT INTO `p_componente` VALUES ('7', 'COMPONENTE DE PRUEBA', null, null, '3', '6', '2');
 
@@ -125,7 +124,6 @@ CREATE TABLE `p_estrategia` (
 INSERT INTO `p_estrategia` VALUES ('1', 'ESTRATEGIA 1', 'PAAD', '1', '1');
 INSERT INTO `p_estrategia` VALUES ('2', 'ESTRATEGIA 2', 'PPV', '1', '1');
 INSERT INTO `p_estrategia` VALUES ('3', 'ESTRATEGIA 3', 'VEC', '1', '1');
-INSERT INTO `p_estrategia` VALUES ('4', 'ESTRATEGIA 5', 'NEWARE', '1', '2');
 INSERT INTO `p_estrategia` VALUES ('5', 'nueva estrategia', 'NEWFER', '2', '2');
 INSERT INTO `p_estrategia` VALUES ('6', 'ESTRATEGIA DE PRUEBA', 'E01', '3', '2');
 
@@ -273,6 +271,7 @@ CREATE TABLE `p_usuario` (
 INSERT INTO `p_usuario` VALUES ('1', '181062738', 'Darling', '123456', 'dxdiaz@ing.ucsc.cl', '1');
 INSERT INTO `p_usuario` VALUES ('2', '166219132', 'Francisco', '654321', 'fcordero@ucsc.cl', '2');
 INSERT INTO `p_usuario` VALUES ('3', '13508155', 'Fernando', '999999', 'farcos@ucsc.cl', '2');
+INSERT INTO `p_usuario` VALUES ('4', '12345678', 'Karla Venegas', '1234', 'kvenegas@ucsc.cl', '2');
 
 -- ----------------------------
 -- View structure for v_avance_actividades
@@ -289,7 +288,7 @@ FROM p_actividad ;
 -- View structure for v_detalle_gastos
 -- ----------------------------
 DROP VIEW IF EXISTS `v_detalle_gastos`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_detalle_gastos` AS SELECT 
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_detalle_gastos` AS SELECT 
 A.*,
 B.P_COSTO_PLANIF,
 SUM(B.P_COSTO)AS P_COSTO,
@@ -302,7 +301,7 @@ B.P_ID_TIPO_GASTO,
 B.P_ID_ITEM_TIPO_GASTO,
 (SELECT P_NOMBRE_ITEM_TIPO_GASTO FROM p_item_tipo_gasto WHERE P_ID_ITEM_TIPO_GASTO=B.P_ID_ITEM_TIPO_GASTO)AS P_NOMBRE_ITEM_TIPO_GASTO
 FROM p_actividad A
-LEFT JOIN p_gasto_item B ON A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD GROUP BY A.P_ID_ACTIVIDAD ; ;
+LEFT JOIN p_gasto_item B ON A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD GROUP BY A.P_ID_ACTIVIDAD ;
 
 -- ----------------------------
 -- View structure for v_promedio_componente
