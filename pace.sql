@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Local
+Source Server         : Nueva
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : pace
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-25 00:08:15
+Date: 2016-08-25 08:04:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,17 +45,17 @@ CREATE TABLE `p_actividad` (
 -- ----------------------------
 -- Records of p_actividad
 -- ----------------------------
-INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '1', '1', '14');
-INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '14');
-INSERT INTO `p_actividad` VALUES ('3', '1', 'tercera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '14');
+INSERT INTO `p_actividad` VALUES ('1', '1', 'primera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '1', '1', '2');
+INSERT INTO `p_actividad` VALUES ('2', '1', 'segunda actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '1');
+INSERT INTO `p_actividad` VALUES ('3', '1', 'tercera actividad', '166219132', '2016-08-09', '2016-11-16', '10000', '100', '1', 'prueba', '1', '1', '2');
 INSERT INTO `p_actividad` VALUES ('4', '1', 'primera actividad dos', '166219132', '2016-08-09', '2016-11-16', '10000', '50', '1', 'prueba', '2', '2', '1');
 INSERT INTO `p_actividad` VALUES ('5', '1', 'segunda actividad dos', '166219132', '2016-08-09', '2016-11-16', '10000', '50', '1', 'prueba', '2', '2', '1');
 INSERT INTO `p_actividad` VALUES ('6', '1', 'primera actividad tres', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '3', '3', '1');
 INSERT INTO `p_actividad` VALUES ('7', '1', 'segunda actividad tres', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '3', '3', '1');
 INSERT INTO `p_actividad` VALUES ('8', '1', 'primera actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
 INSERT INTO `p_actividad` VALUES ('9', '1', 'segunda actividad cuatro', '166219132', '2016-08-09', '2016-11-16', '10000', '10', '1', 'prueba', '4', '3', '1');
-INSERT INTO `p_actividad` VALUES ('10', '2', 'NUEVA ACTIVIDAD', '166219132', '2016-08-16', '2016-08-23', '0', '0', '0', 'prueba', '6', '5', '1');
-INSERT INTO `p_actividad` VALUES ('11', '3', 'ACTIVIDAD 1 DE PRUEBA', '166219132', '2016-08-16', '2016-08-23', '0', '0', '0', 'DESCRIPCIÓN PRUEBA', '7', '6', '0');
+INSERT INTO `p_actividad` VALUES ('10', '2', 'NUEVA ACTIVIDAD', '166219132', '2016-08-16', '2016-08-31', '0', '0', '0', 'prueba', '6', '5', '1');
+INSERT INTO `p_actividad` VALUES ('11', '3', 'ACTIVIDAD 1 DE PRUEBA', '166219132', '2016-08-16', '2016-08-31', '0', '0', '0', 'DESCRIPCIÓN PRUEBA', '7', '6', '0');
 
 -- ----------------------------
 -- Table structure for p_clasificacion_item
@@ -278,8 +278,10 @@ INSERT INTO `p_usuario` VALUES ('3', '13508155', 'Fernando', '999999', 'farcos@u
 -- View structure for v_avance_actividades
 -- ----------------------------
 DROP VIEW IF EXISTS `v_avance_actividades`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_avance_actividades` AS SELECT *,
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_avance_actividades` AS SELECT *,
 (DATEDIFF(P_FECHA_TERMINO,P_FECHA_INICIO) DIV 7)AS P_TOTAL_SEMANAS,
+(DATEDIFF(CURDATE(),P_FECHA_INICIO)DIV 7)AS P_TOTAL_SEMANAS_TRANSCURRIDAS,
+(DATEDIFF(CURDATE(),P_FECHA_INICIO)DIV 7)*100 DIV (DATEDIFF(P_FECHA_TERMINO,P_FECHA_INICIO) DIV 7) AS PORC_REAL,
 ((P_SEM_EJECUTADAS*100) DIV (DATEDIFF(P_FECHA_TERMINO,P_FECHA_INICIO) DIV 7))AS P_PORC_INDIVIDUAL
 FROM p_actividad ;
 
@@ -300,14 +302,15 @@ B.P_ID_TIPO_GASTO,
 B.P_ID_ITEM_TIPO_GASTO,
 (SELECT P_NOMBRE_ITEM_TIPO_GASTO FROM p_item_tipo_gasto WHERE P_ID_ITEM_TIPO_GASTO=B.P_ID_ITEM_TIPO_GASTO)AS P_NOMBRE_ITEM_TIPO_GASTO
 FROM p_actividad A
-LEFT JOIN p_gasto_item B ON A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD GROUP BY A.P_ID_ACTIVIDAD ;
+LEFT JOIN p_gasto_item B ON A.P_ID_ACTIVIDAD=B.P_ID_ACTIVIDAD GROUP BY A.P_ID_ACTIVIDAD ; ;
 
 -- ----------------------------
 -- View structure for v_promedio_componente
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_componente`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_componente` AS SELECT *,
-(SELECT(SUM(B.P_PORC_INDIVIDUAL*B.P_TOTAL_SEMANAS)) DIV SUM(B.P_TOTAL_SEMANAS) FROM v_avance_actividades B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_COMPONENTE=A.P_ID_COMPONENTE)AS PORCENTAJE_COMPONENTE
+(SELECT(SUM(B.P_PORC_INDIVIDUAL*B.P_TOTAL_SEMANAS)) DIV SUM(B.P_TOTAL_SEMANAS) FROM v_avance_actividades B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_COMPONENTE=A.P_ID_COMPONENTE)AS PORCENTAJE_AVANCE_COMPONENTE,
+(SELECT(SUM(B.PORC_REAL*B.P_TOTAL_SEMANAS)) DIV SUM(B.P_TOTAL_SEMANAS) FROM v_avance_actividades B where B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_COMPONENTE=A.P_ID_COMPONENTE)AS PORCENTAJE_REAL_COMPONENTE
 FROM p_componente A ;
 
 -- ----------------------------
@@ -315,7 +318,8 @@ FROM p_componente A ;
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_estrategia`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_estrategia` AS select A.*,
-(select ROUND(AVG(B.PORCENTAJE_COMPONENTE),0) from v_promedio_componente B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_ESTRATEGIA=A.P_ID_ESTRATEGIA)AS PORCENTAJE_ESTRATEGIA
+(select ROUND(AVG(B.PORCENTAJE_AVANCE_COMPONENTE),0) from v_promedio_componente B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_ESTRATEGIA=A.P_ID_ESTRATEGIA)AS PORCENTAJE_AVANCE_ESTRATEGIA,
+(select ROUND(AVG(B.PORCENTAJE_REAL_COMPONENTE),0) from v_promedio_componente B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO AND B.P_ID_ESTRATEGIA=A.P_ID_ESTRATEGIA)AS PORCENTAJE_REAL_ESTRATEGIA
 from p_estrategia A ;
 
 -- ----------------------------
@@ -323,5 +327,6 @@ from p_estrategia A ;
 -- ----------------------------
 DROP VIEW IF EXISTS `v_promedio_proyecto`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_promedio_proyecto` AS select A.*,
-(select ROUND(AVG(B.PORCENTAJE_ESTRATEGIA),0) from v_promedio_estrategia B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO)AS PORCENTAJE_PROYECTO
+(select ROUND(AVG(B.PORCENTAJE_AVANCE_ESTRATEGIA),0) from v_promedio_estrategia B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO)AS PORCENTAJE_AVANCE_PROYECTO,
+(select ROUND(AVG(B.PORCENTAJE_REAL_ESTRATEGIA),0) from v_promedio_estrategia B WHERE B.P_ID_PROYECTO=A.P_ID_PROYECTO)AS PORCENTAJE_REAL_PROYECTO
 from p_proyecto A ;
