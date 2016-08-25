@@ -8,10 +8,11 @@
             <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin">
+            <form id="form_login" class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="email" id="email" name="email" class="form-control" placeholder="Correo Electrónico" autofocus>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+                <div id="respuesta"></div>
                 <!--<div id="remember" class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me"> Remember me

@@ -17,7 +17,7 @@
     margin-bottom: 40px;
 	position:relative;
 	min-height:300px;
-	top:-70;
+	top:-14px;
 }
 .logo_ucsc img{
     float: left;
@@ -41,6 +41,7 @@
 
 .container{
 	margin-bottom: 7%;
+	width: 67%;
 }
 
 #table_center{

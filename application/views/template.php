@@ -15,7 +15,7 @@
 <body>
 
 
-   <div id="header">
+<div id="header">
     <div class="container">
     <div class="perfil"></div>
 	<div class="logo_ucsc"><img src="<?php echo base_url(); ?>assets/img/logo_ucsc.png"></div>

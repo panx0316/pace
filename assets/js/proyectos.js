@@ -12,7 +12,7 @@ $(document).ready(function() {
 						message: data,
 						closeButton:false,
 						idModal:'modal_add_proyecto'
-						
+
 					});
 				}
 			},
@@ -22,24 +22,24 @@ $(document).ready(function() {
 					alert(error);
 			},
 					timeout: 10000
-					
+
 		});
-	
+
 	});
-	
-	$("#addArea").on("click", function(){
+
+	$("#addEstrategia").on("click", function(){
 		$.ajax({
 			type: 'post',
-			url:  host+'inicio/nuevaArea/',
+			url:  host+'inicio/nuevaEstrategia/',
 			success: function (data, status)
 			{
 				if(data != ''){
 					$.createModal({
-						title:'Agregar Área',
+						title:'Agregar Estrategia',
 						message: data,
 						closeButton:false,
-						idModal:'modal_add_area'
-						
+						idModal:'modal_add_estrategia'
+
 					});
 				}
 			},
@@ -49,24 +49,24 @@ $(document).ready(function() {
 					alert(error);
 			},
 					timeout: 10000
-					
+
 		});
-	
+
 	});
-	
-	$("#addHito").on("click", function(){
+
+	$("#addComponente").on("click", function(){
 		$.ajax({
 			type: 'post',
-			url:  host+'inicio/nuevoHito/',
+			url:  host+'inicio/nuevoComponente/',
 			success: function (data, status)
 			{
 				if(data != ''){
 					$.createModal({
-						title:'Agregar Hito',
+						title:'Agregar Componente',
 						message: data,
 						closeButton:false,
-						idModal:'modal_add_hito'
-						
+						idModal:'modal_add_componente'
+
 					});
 				}
 			},
@@ -76,11 +76,11 @@ $(document).ready(function() {
 					alert(error);
 			},
 					timeout: 10000
-					
+
 		});
-	
-	});	
-	
+
+	});
+
 	$("#addActividad").on("click", function(){
 		$.ajax({
 			type: 'post',
@@ -93,7 +93,7 @@ $(document).ready(function() {
 						message: data,
 						closeButton:false,
 						idModal:'modal_add_actividad'
-						
+
 					});
 				}
 			},
@@ -103,11 +103,11 @@ $(document).ready(function() {
 					alert(error);
 			},
 					timeout: 10000
-					
+
 		});
-	
+
 	});
-		$(".editar_actividad").on("click", function(){
+		$(document).on("click",".editar_actividad", function(){
 			var id=$(this).data("id");
 		$.ajax({
 			type: 'post',
@@ -121,7 +121,7 @@ $(document).ready(function() {
 						message: data,
 						closeButton:false,
 						idModal:'modal_edit_actividad'
-						
+
 					});
 				}
 			},
@@ -131,10 +131,10 @@ $(document).ready(function() {
 					alert(error);
 			},
 					timeout: 10000
-					
+
 		});
-	
-	});	
+
+	});
 
 	$.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -171,4 +171,4 @@ $(document).ready(function() {
 });
 $(document).on("show.bs.modal", "modal_add_proyecto", function(){
 		alert("hola");
-});	
+});

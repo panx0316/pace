@@ -4,8 +4,8 @@
 
 		jQuery.validator.addMethod("letras", function(value, element) {
         return this.optional(element) || /^[a-záéóóúàèìòùäëïöüñ\s]+$/i.test(value);
-        }); 
-			
+        });
+
 
 			$( ".fecha" ).datepicker({
 			  changeMonth: true,
@@ -25,13 +25,13 @@
 			 $("#fecha_termino-error").hide();
 			}
 			});
-			
+
 
 			$("#form_nueva_actividad").validate({
 			rules: {
 				proyecto: {required: true},
-				area: {required: true},
-				hito: {required: true},
+				estrategia: {required: true},
+				estrategia: {required: true},
 				titulo: {required: true},
 				rut_responsable: {required: true},
 				// nombre_responsable: {required: true, letras:true},
@@ -39,12 +39,12 @@
 				descripcion: {required: true, rangelength: [1,1000]},
 				fecha_inicio: {required: true},
 				fecha_termino: {required: true}
-				
+
 			},
 			messages: {
 				proyecto: {required:"Seleccione un proyecto"},
-				area: {required:"Seleccione un area del proyecto"} ,
-				hito: {required:"Seleccione un hito del proyecto"} ,
+				estrategia: {required:"Seleccione un estrategia del proyecto"} ,
+				estrategia: {required:"Seleccione un estrategia del proyecto"} ,
 				titulo: {required:"Ingrese titulo de proyecto"},
 				rut_responsable: {required:"Ingrese un rut de responsable"},
 				// nombre_responsable: {required:"Ingrese un nombre de responsable", letras:"Ingrese solo letras"},
@@ -54,9 +54,9 @@
 				fecha_termino: {required:"Ingrese una fecha de termino"}
 			},
 			submitHandler: function() {
-			
+
 			var form =  $('form.form-horizontal'),action = form.attr('action');
-			
+
 			var formData = new FormData(form[0]);
 				$.ajax({
 					type: 'post',
@@ -66,52 +66,55 @@
 					contentType: false,
 					processData: false,
 					timeout: 20000,
-					
+
 					beforeSend: function () {
 						$('.enviar_solicitud').prop('disabled', true);
 					},
 					success: function (data, status)
 					{
 						$("#resultado").html(data);
+						$('#modal_add_actividad').on('hidden.bs.modal', function (e) {
+						location.reload();
+						});
 					},
 					error: function(jqXHR, estado, error)
 					{
 						console.log(error);
 						alert(error);
 					},
-				
+
 				});
 			}
 		});
-		
-		
+
+
 	$('#proyecto').on('change', function (){
 		var opcion = $(this).val();
 
 		$.ajax({
 			type: 'post',
-			url:  host+'inicio/getAreas',
+			url:  host+'inicio/getEstrategias',
 			data: {opcion : opcion},
 			success: function (data, status)
 			{
 				if(opcion==''){
-				$('#area').attr('readonly',true);
-				$('#area').attr('disabled',true);
-				$('#area').val("");
-				$('#hito').attr('readonly',true);
-				$('#hito').attr('disabled',true);	
-				$('#hito').val("");
+				$('#estrategia').attr('readonly',true);
+				$('#estrategia').attr('disabled',true);
+				$('#estrategia').val("");
+				$('#componente').attr('readonly',true);
+				$('#componente').attr('disabled',true);
+				$('#componente').val("");
 				}
 				else{
 				if(data!=''){
-				$('#area').html(data);
-				$('#area').attr('readonly',false);	
-				$('#area').attr('disabled',false);
-				$('#hito').attr('readonly',false);	
-				$('#hito').attr('disabled',false);	
+				$('#estrategia').html(data);
+				$('#estrategia').attr('readonly',false);
+				$('#estrategia').attr('disabled',false);
+				$('#componente').attr('readonly',false);
+				$('#componente').attr('disabled',false);
 				}
 				}
-				
+
 			},
 			error: function(jqXHR, estado, error)
 			{
@@ -119,31 +122,31 @@
 				alert(error);
 			},
 			timeout: 20000
-		}); 
+		});
 	});
-		
-	$('#area').on('change', function (){
-		var area = $(this).val();
+
+	$('#estrategia').on('change', function (){
+		var estrategia = $(this).val();
 		var proyecto = $("#proyecto").val();
 
-		if(proyecto=='' || area==''){
-			$('#hito').attr('readonly',true);
-			$('#hito').attr('disabled',false);	
+		if(proyecto=='' || estrategia==''){
+			$('#componente').attr('readonly',true);
+			$('#componente').attr('disabled',false);
 		}
 		$.ajax({
 			type: 'post',
-			url:  host+'inicio/getHitos',
-			data: {area : area, proyecto:proyecto},
+			url:  host+'inicio/getComponentes',
+			data: {estrategia : estrategia, proyecto:proyecto},
 			success: function (data, status)
 			{
-				
+
 				if(data!=''){
-					$('#hito').html(data);
-					$('#hito').attr('readonly',false);	
-					$('#hito').attr('disabled',false);	
+					$('#componente').html(data);
+					$('#componente').attr('readonly',false);
+					$('#componente').attr('disabled',false);
 				}
-				
-				
+
+
 			},
 			error: function(jqXHR, estado, error)
 			{
@@ -151,9 +154,9 @@
 				alert(error);
 			},
 			timeout: 20000
-		}); 
-	});	
-	
+		});
+	});
+
 	});
 </script>
 
@@ -161,7 +164,7 @@
 
 
 <input type="hidden" name="fecha" value="<?php echo date('d/m/Y');?>">
-  
+
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Proyecto</label>
 		<div class="col-sm-8">
@@ -172,29 +175,29 @@
 		  } ?>
 		  <select>
 		</div>
-</div>   
+</div>
   <div class="form-group form-group-sm">
-		<label for="" class="col-sm-2 control-label">Área</label>
+		<label for="" class="col-sm-2 control-label">Estrategia</label>
 		<div class="col-sm-8">
-		  <select class="form-control" id="area" name="area" disabled readonly>
-		  <option value="">--Seleccione un área--</option>
-		  <?php foreach ($areas as $data_areas){
-		  echo "<option value=".$data_areas->P_ID_AREA.">".$data_areas->P_NOMBRE_AREA."</option>";
+		  <select class="form-control" id="estrategia" name="estrategia" disabled readonly>
+		  <option value="">--Seleccione una Estrategia--</option>
+		  <?php foreach ($estrategias as $data_estrategias){
+		  echo "<option value=".$data_estrategias->P_ID_ESTRATEGIA.">".$data_estrategias->P_NOMBRE_ESTRATEGIA."</option>";
 		  } ?>
 		  <select>
 		</div>
-</div>  
+</div>
 <div class="form-group form-group-sm">
-		<label for="" class="col-sm-2 control-label">Hito</label>
+		<label for="" class="col-sm-2 control-label">Componente</label>
 		<div class="col-sm-8">
-		  <select class="form-control" id="hito" name="hito" disabled readonly>
-		  <option value="">--Seleccione un Hito--</option>
-		  <?php foreach ($hitos as $data_hitos){
-		  echo "<option value=".$data_hitos->P_ID_HITO.">".$data_hitos->P_NOMBRE_HITO."</option>";
+		  <select class="form-control" id="componente" name="componente" disabled readonly>
+		  <option value="">--Seleccione un Componente--</option>
+		  <?php foreach ($componentes as $data_componentes){
+		  echo "<option value=".$data_componentes->P_ID_COMPONENTE.">".$data_componentes->P_NOMBRE_COMPONENTE."</option>";
 		  } ?>
 		  <select>
 		</div>
-</div> 
+</div>
 <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Título</label>
 		<div class="col-sm-8">
@@ -220,7 +223,7 @@
 		  <input type="text" class="form-control" id="costo" name="costo"></input>
 		</div>
   </div>
-		  
+
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Descripción del Proyecto</label>
 		<div class="col-sm-8">
@@ -228,7 +231,7 @@
 		</div>
   </div>
    <div class="form-group form-group-sm">
-		
+
 			    <label for="" class="col-sm-2 control-label">Fecha Inicio</label>
 				<div class="rangoFecha">
 					<div class="col-sm-2">
@@ -238,17 +241,17 @@
 					<div class="col-sm-2">
 						<input type="text" name="fecha_termino" id="fecha_termino" class="form-control fecha fecha_termino" placeholder="dd/mm/aaaa">
 					</div>
-					
-				</div>	
-		    
+
+				</div>
+
     </div>
 
-	
+
   <div class="form-group">
 		<div class="col-sm-4" style="float: right;">
 			<button type="submit" class="btn btn-primary enviar_solicitud">Registrar Actividad</button>
 			<div id="resultado"></div>
 		</div>
 	</div>
-	
+
 </form>

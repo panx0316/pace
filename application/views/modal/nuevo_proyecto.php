@@ -3,8 +3,8 @@
 
 		jQuery.validator.addMethod("letras", function(value, element) {
         return this.optional(element) || /^[a-záéóóúàèìòùäëïöüñ\s]+$/i.test(value);
-        }); 
-			
+        });
+
 			$( ".fecha" ).datepicker({
 			  changeMonth: true,
 			  changeYear: true
@@ -19,7 +19,7 @@
 				descripcion: {required: true, rangelength: [1,1000]},
 				fecha_inicio: {required: true},
 				fecha_termino: {required: true}
-				
+
 			},
 			messages: {
 				titulo: {required:"Ingrese titulo de proyecto"},
@@ -31,9 +31,9 @@
 				fecha_termino: {required:"Ingrese una fecha de termino"}
 			},
 			submitHandler: function() {
-			
+
 			var form =  $('form.form-horizontal'),action = form.attr('action');
-			
+
 			var formData = new FormData(form[0]);
 				$.ajax({
 					type: 'post',
@@ -43,31 +43,34 @@
 					contentType: false,
 					processData: false,
 					timeout: 20000,
-					
+
 					beforeSend: function () {
 						$('.enviar_solicitud').prop('disabled', true);
 					},
 					success: function (data, status)
 					{
 						$("#resultado").html(data);
+						$('#modal_add_proyecto').on('hidden.bs.modal', function (e) {
+						location.reload();
+						});
 					},
 					error: function(jqXHR, estado, error)
 					{
 						console.log(error);
 						alert(error);
 					},
-				
+
 				});
 			}
 		});
-	
+
 	});
 </script>
 
 <form id="form_nuevo_proyecto" class="form-horizontal" method="post" action="inicio/nuevo_proyecto_progress" enctype="multipart/form-data">
 
 <input type="hidden" name="fecha" value="<?php echo date('d/m/Y');?>">
-  
+
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Título</label>
 		<div class="col-sm-8">
@@ -93,7 +96,7 @@
 		  <input type="text" class="form-control" id="costo" name="costo"></input>
 		</div>
   </div>
-		  
+
   <div class="form-group form-group-sm">
 		<label for="" class="col-sm-2 control-label">Descripci&oacute;n del Proyecto</label>
 		<div class="col-sm-8">
@@ -101,7 +104,7 @@
 		</div>
   </div>
    <div class="form-group form-group-sm">
-		
+
 			    <label for="" class="col-sm-2 control-label">Fecha Inicio</label>
 				<div class="rangoFecha">
 					<div class="col-sm-2">
@@ -111,17 +114,17 @@
 					<div class="col-sm-2">
 						<input type="text" name="fecha_termino" id="fecha_termino" class="form-control fecha fecha_termino" placeholder="dd/mm/aaaa">
 					</div>
-					
-				</div>	
-		    
+
+				</div>
+
     </div>
 
-	
+
   <div class="form-group">
 		<div class="col-sm-4" style="float: right;">
 			<button type="submit" class="btn btn-primary enviar_solicitud">Registrar Actividad</button>
 			<div id="resultado"></div>
 		</div>
 	</div>
-	
+
 </form>
