@@ -20,7 +20,7 @@
 				<?php foreach ($actividades as $data_actividades){
 					if($data_componentes->P_ID_COMPONENTE == $data_actividades->P_ID_COMPONENTE){ ?>
                   <li>
-                    <a href="#"><?php echo "<b>".$data_actividades->P_NOMBRE_ACTIVIDAD."</b> - Fecha Inicio:". FormatearFechaES($data_actividades->P_FECHA_INICIO)." / Fecha Término:". FormatearFechaES($data_actividades->P_FECHA_TERMINO)." / Avance:". $data_actividades->P_PORC_AVANCE."%" ?></a><button type="button" class="btn btn-link editar_actividad" data-id="<?php echo $data_actividades->P_ID_ACTIVIDAD; ?>">Editar</button>
+                    <a href="#"><?php echo "<b>".$data_actividades->P_NOMBRE_ACTIVIDAD."</b> - Fecha Inicio:". FormatearFechaES($data_actividades->P_FECHA_INICIO)." / Fecha Término:". FormatearFechaES($data_actividades->P_FECHA_TERMINO)." / Avance Real:". GetAvanceActividadReal($data_actividades->P_ID_ACTIVIDAD)."% /Avance:". GetAvanceActividad($data_actividades->P_ID_ACTIVIDAD)."%" ?></a><button type="button" class="btn btn-link editar_actividad" data-id="<?php echo $data_actividades->P_ID_ACTIVIDAD; ?>">Editar</button><button type="button" class="btn btn-link editar_fechas" data-id="<?php echo $data_actividades->P_ID_ACTIVIDAD; ?>">Editar Fechas</button>
                     <ul>
                       <?php foreach ($resultados as $data_resultados){
                         if($data_actividades->P_ID_ACTIVIDAD == $data_resultados->P_ID_ACTIVIDAD){ ?>

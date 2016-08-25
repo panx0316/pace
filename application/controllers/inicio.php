@@ -29,7 +29,7 @@ class Inicio extends CI_Controller {
 		$data['estrategias'] = $this->pace_model->getEstrategias();
 		$data['resultados'] = $this->pace_model->getResultados();
 
-		$data['username'] = $this->session->userdata('username');
+		
 
 		$this->template->load('template', 'arbolscreen', $data);
 		}
@@ -126,7 +126,17 @@ class Inicio extends CI_Controller {
 		$id = $this->input->post("id_actividad");
 		$data['actividades'] = $this->pace_model->getActividades($id);
 
+
 		$this->load->view('modal/editar_actividad', $data);
+
+	}
+	public function editarFechas()
+	{
+		$id = $this->input->post("id_actividad");
+		$data['actividades'] = $this->pace_model->getActividades($id);
+
+
+		$this->load->view('modal/editar_fechas', $data);
 
 	}
 
@@ -140,7 +150,7 @@ class Inicio extends CI_Controller {
 		$nombre_responsable = $this->input->post("nombre_responsable");
 
 		$descripcion = $this->input->post("descripcion");
-		$avance = $this->input->post("avance");
+		$sem_ejecutadas = $this->input->post("sem_ejecutadas");
 		// $fecha_inicio = $this->input->post("fecha_inicio");
 		// $fecha_termino = $this->input->post("fecha_termino");
 
@@ -150,7 +160,7 @@ class Inicio extends CI_Controller {
 			"RUT_RESPONSABLE"=>$rut_responsable,
 			"NOMBRE_RESPONSABLE"=>$nombre_responsable,
 			"DESCRIPCION"=>$descripcion,
-			"AVANCE"=>$avance
+			"SEM_EJECUTADAS"=>$sem_ejecutadas
 		);
 
 		$resultado = $this->pace_model->setEditProyecto($data);
@@ -168,6 +178,38 @@ class Inicio extends CI_Controller {
 		}
 
 	}
+
+	public function edit_fecha_progress()
+	{
+		if($_POST)
+		{
+		$id_actividad = $this->input->post("id_actividad");
+		$fecha_inicio = $this->input->post("fecha_inicio");
+		$fecha_termino = $this->input->post("fecha_termino");
+
+		$data=array(
+			"ID_ACTIVIDAD"=>$id_actividad,
+			"FECHA_INI"=>$fecha_inicio,
+			"FECHA_TER"=>$fecha_termino
+		);
+		$resultado = $this->pace_model->setEditFechas($data);
+
+		if($resultado!=FALSE){
+		$mensaje='<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Datos Guardados correctamente</strong></div>';
+		}
+		else{
+		$mensaje='<div class="alert alert-danger"><strong>Error al guardar los datos</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+		echo $mensaje;
+		}
+		else{
+		echo '<div class="alert alert-danger"><strong>NO HAY DATOS ENVIADOS</strong><button type="button" class="btn btn-default salir" data-dismiss="modal">Salir</button></div>';
+		}
+
+	}
+
+
+
 
 	public function nueva_estrategia_progress(){
 		if($_POST)

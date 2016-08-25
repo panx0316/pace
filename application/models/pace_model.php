@@ -101,7 +101,7 @@ class Pace_model extends CI_Model{
 	}
 	return $porcentaje;
 	}
-	
+
 	public function getAvanceProyecto($id_proyecto)
 	{
 	$sql="select PORCENTAJE_AVANCE_PROYECTO from V_PROMEDIO_PROYECTO WHERE P_ID_PROYECTO='{$id_proyecto}' ";
@@ -112,6 +112,29 @@ class Pace_model extends CI_Model{
 	}
 	return $porcentaje;
 	}
+
+	public function getAvanceActividadReal($id_actividad)
+	{
+	$sql="select PORC_REAL from v_avance_actividades where P_ID_ACTIVIDAD='{$id_actividad}'";
+	$query = $this->db->query($sql);
+	$porcentaje=($query->row()->PORC_REAL);
+	if($porcentaje==null){
+		$porcentaje=0;
+	}
+	return $porcentaje;
+	}
+
+	public function getAvanceActividad($id_actividad)
+	{
+	$sql="select P_PORC_INDIVIDUAL from v_avance_actividades where P_ID_ACTIVIDAD='{$id_actividad}'";
+	$query = $this->db->query($sql);
+	$porcentaje=($query->row()->P_PORC_INDIVIDUAL);
+	if($porcentaje==null){
+		$porcentaje=0;
+	}
+	return $porcentaje;
+	}
+
 
 	public function getActividades($id=FALSE)
 	{
@@ -261,6 +284,54 @@ class Pace_model extends CI_Model{
 
 	}
 
+	public function getSemanasActividad($id_actividad)
+	{
+		if($id_actividad!=FALSE){
+		$sql="select P_TOTAL_SEMANAS from v_avance_actividades WHERE P_ID_ACTIVIDAD='{$id_actividad}' ";
+
+		$query = $this->db->query($sql);
+		$semanas=($query->row()->P_TOTAL_SEMANAS);
+		return $semanas;
+		}
+		else{
+			return FALSE;
+		}
+
+	}
+
+
+	public function setEditFechas($data)
+	{
+		if($data != FALSE)
+		{
+			$this->db->trans_start();
+
+			$fecha_ini=FormatearFecha($data['FECHA_INI']);
+			$fecha_ter=FormatearFecha($data['FECHA_TER']);
+
+		$datos = array(
+						'P_FECHA_INICIO' => $fecha_ini,
+						'P_FECHA_TERMINO' => $fecha_ter
+				);
+		$this->db->where('P_ID_ACTIVIDAD', $data['ID_ACTIVIDAD']);
+		$this->db->update('p_actividad', $datos);
+
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE)
+			{
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+
+		}
+	}
+
+
+
 	public function setEditProyecto($data){
 		if($data != FALSE)
 		{
@@ -269,7 +340,7 @@ class Pace_model extends CI_Model{
             'P_NOMBRE_ACTIVIDAD' => $data['NOMBRE_ACTIVIDAD'],
             'P_RESPONSABLE_ACTIVIDAD' => $data['RUT_RESPONSABLE'],
             'P_DESCRIPCION' => $data['DESCRIPCION'],
-            'P_PORC_AVANCE' => $data['AVANCE']
+            'P_SEM_EJECUTADAS' => $data['SEM_EJECUTADAS']
         );
 		$this->db->where('P_ID_ACTIVIDAD', $data['ID']);
 		$this->db->update('p_actividad', $datos);

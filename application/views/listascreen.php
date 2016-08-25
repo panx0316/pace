@@ -1,8 +1,6 @@
 <div class="container" style="width:40%; margin:0 auto;">
   <h3>Módulo de Seguimiento</h3>
-  <div id="datos_usuario" style="position: absolute; right: 0px; top: 10%; margin-right: 37px;">
-  <h4><?php echo $username; ?><a href="<?php echo base_url().'logout' ?>" id="goToFinanzas"  class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Salir</a></h4>
-  </div>
+
  <h4 style="margin-left: 14%;">Vista de Lista</h4>
 
  <br>

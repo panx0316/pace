@@ -136,6 +136,42 @@ $(document).ready(function() {
 
 	});
 
+
+	$(document).on("click",".editar_fechas", function(){
+		var id=$(this).data("id");
+	$.ajax({
+		type: 'post',
+		url:  host+'inicio/editarFechas/',
+		data:{id_actividad:id},
+		success: function (data, status)
+		{
+			if(data != ''){
+				$.createModal({
+					title:'Editar Fechas',
+					message: data,
+					closeButton:false,
+					idModal:'modal_edit_fechas'
+
+				});
+			}
+		},
+		error: function(jqXHR, estado, error)
+		{
+				console.log(error);
+				alert(error);
+		},
+				timeout: 10000
+
+	});
+
+});
+
+
+
+
+
+
+
 	$.datepicker.regional['es'] = {
         closeText: 'Cerrar',
         prevText: '<Ant',

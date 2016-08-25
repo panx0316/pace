@@ -27,10 +27,10 @@
         <th>Resultado</th>
         <th>Tipo gasto</th>
         <th>Detalle gasto</th>
-        <th>Monto programado</th>
-        <th>Monto gastado</th>
-        <th>Saldo</th>
-        <th>estado</th>
+        <th style="width: 100px;">Monto programado</th>
+        <th style="width: 100px;">Monto gastado</th>
+        <th style="width: 100px;">Saldo</th>
+        <th style="width: 100px;">Estado</th>
     </tr>
 
     <?php foreach ($gastos as $data_gastos){ ?>

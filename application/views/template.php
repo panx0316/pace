@@ -18,8 +18,11 @@
 <div id="header">
     <div class="container">
     <div class="perfil"></div>
-	<div class="logo_ucsc"><img src="<?php echo base_url(); ?>assets/img/logo_ucsc.png"></div>
-    <div class="logo_pace"><img src="<?php echo base_url(); ?>assets/img/logo_pace.jpg"></div>
+	<!-- <div class="logo_ucsc"><img src="<?php //echo base_url(); ?>assets/img/logo_ucsc.png"></div>
+    <div class="logo_pace"><img src="<?php //echo base_url(); ?>assets/img/logo_pace.jpg"></div> -->
+    </div>
+    <div id="datos_usuario" style="position: absolute; right: 0px; top: 10%; margin-right: 37px;">
+  <?php if(isset($username)){ ?>  <h4><?php echo $username; ?><a href="<?php echo base_url().'logout' ?>" id="goToFinanzas"  class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Salir</a></h4><?php } ?>
     </div>
 	</div>
 

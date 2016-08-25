@@ -11,7 +11,7 @@ if(!function_exists('FormatearFecha'))
 			$mes=$porciones[1];
 			$anio=$porciones[2];
 			$fecha_final=$anio."-".$mes."-".$dia;
-			
+
 			return $fecha_final;
 		}
 		else
@@ -32,7 +32,7 @@ if(!function_exists('FormatearFechaES'))
 			$mes=$porciones[1];
 			$dia=$porciones[2];
 			$fecha_final=$dia."/".$mes."/".$anio;
-			
+
 			return $fecha_final;
 		}
 		else
@@ -46,14 +46,14 @@ if(!function_exists('GetAvanceComponente'))
 {
 	function GetAvanceComponente($id_proyecto,$id_estrategia,$id_componente)
 	{
-		$CI= & get_instance(); 
+		$CI= & get_instance();
 		$CI->load->model('pace_model');
 		if(isset($id_proyecto) && isset($id_estrategia) && isset($id_componente))
 		{
-			
+
 			$avance = $CI->pace_model->getAvanceComponentes($id_proyecto,$id_estrategia,$id_componente);
 
-			
+
 			return $avance;
 		}
 		else
@@ -66,14 +66,14 @@ if(!function_exists('GetAvanceEstrategia'))
 {
 	function GetAvanceEstrategia($id_proyecto,$id_estrategia)
 	{
-		$CI= & get_instance(); 
+		$CI= & get_instance();
 		$CI->load->model('pace_model');
 		if(isset($id_proyecto) && isset($id_estrategia))
 		{
-			
+
 			$avance = $CI->pace_model->getAvanceEstrategia($id_proyecto,$id_estrategia);
 
-			
+
 			return $avance;
 		}
 		else
@@ -87,14 +87,14 @@ if(!function_exists('GetAvanceEstrategiaReal'))
 {
 	function GetAvanceEstrategiaReal($id_proyecto,$id_estrategia)
 	{
-		$CI= & get_instance(); 
+		$CI= & get_instance();
 		$CI->load->model('pace_model');
 		if(isset($id_proyecto) && isset($id_estrategia))
 		{
-			
+
 			$avance = $CI->pace_model->getAvanceEstrategiaReal($id_proyecto,$id_estrategia);
 
-			
+
 			return $avance;
 		}
 		else
@@ -104,18 +104,83 @@ if(!function_exists('GetAvanceEstrategiaReal'))
 	}
 }
 
+if(!function_exists('GetAvanceActividadReal'))
+{
+	function GetAvanceActividadReal($id_actividad)
+	{
+		$CI= & get_instance();
+		$CI->load->model('pace_model');
+		if(isset($id_actividad))
+		{
+
+			$avance = $CI->pace_model->getAvanceActividadReal($id_actividad);
+
+
+			return $avance;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+}
+
+if(!function_exists('GetAvanceActividad'))
+{
+	function GetAvanceActividad($id_actividad)
+	{
+		$CI= & get_instance();
+		$CI->load->model('pace_model');
+		if(isset($id_actividad))
+		{
+
+			$avance = $CI->pace_model->getAvanceActividad($id_actividad);
+
+
+			return $avance;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+}
+
+
+if(!function_exists('GetSemanasActividad'))
+{
+	function GetSemanasActividad($id_actividad)
+	{
+		$CI= & get_instance();
+		$CI->load->model('pace_model');
+		if(isset($id_actividad))
+		{
+
+			$avance = $CI->pace_model->getSemanasActividad($id_actividad);
+
+
+			return $avance;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+}
+
+
 if(!function_exists('GetAvanceProyecto'))
 {
 	function GetAvanceProyecto($id_proyecto)
 	{
-		$CI= & get_instance(); 
+		$CI= & get_instance();
 		$CI->load->model('pace_model');
 		if(isset($id_proyecto))
 		{
-			
+
 			$avance = $CI->pace_model->getAvanceProyecto($id_proyecto);
 
-			
+
 			return $avance;
 		}
 		else
@@ -129,14 +194,14 @@ if(!function_exists('GetNombreResponsable'))
 {
 	function GetNombreResponsable($rut)
 	{
-		$CI= & get_instance(); 
+		$CI= & get_instance();
 		$CI->load->model('pace_model');
 		if(isset($rut))
 		{
-			
+
 			$nombre = $CI->pace_model->getNombreResponsable($rut);
 
-			
+
 			return $nombre;
 		}
 		else
